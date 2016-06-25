@@ -1,0 +1,71 @@
+.selection-button {
+	display: inline-block;
+	
+	.btn-default {
+		position: relative;
+		margin: 0 10px 10px;
+
+		&:hover,
+		&:focus {
+			background-color: #fff;
+		}
+
+		&.active {
+			color: #44b549;
+			background-color: #fff;
+			border-color: #44b549;
+		}
+
+		.close-wapper {
+			position: absolute;
+			top: -12px;
+			right: -12px;
+			width: 0;    
+			height: 0;   
+			border: 12px solid transparent;    
+			border-bottom-color: #44b549;
+			-webkit-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    -o-transform: rotate(45deg);
+	    transform: rotate(45deg);
+		}
+
+		.icon-close {			
+	    display: block;
+	    width: 8px;
+	    height: 8px;   
+	    position: absolute;
+	    top: 4px;
+			right: -4px;
+			overflow: hidden;
+
+	    &::before {
+	    	content: '';
+		    position: absolute;
+		    height: 1px;
+		    width: 100%;
+		    top: 50%;
+		    left: 0;
+		    margin-top: -1px;
+		    background: #fff;
+	    }
+
+	    &::after {
+				content: '';
+		    position: absolute;
+		    height: 1px;
+		    width: 100%;
+		    top: 50%;
+		    left: 0;
+		    margin-top: -1px;
+		    background: #fff;
+		    -webkit-transform: rotate(90deg);
+		    -moz-transform: rotate(90deg);
+		    -ms-transform: rotate(90deg);
+		    -o-transform: rotate(90deg);
+		    transform: rotate(90deg);
+	    }
+		}
+	}
+}

@@ -1,0 +1,45 @@
+.population-tag-list {
+	.data-table {
+		> tbody > tr > td.cell-operation {
+			width: 110px;
+		}
+
+		.cell-indicator-name {
+			width: 160px;
+		}
+
+		.cell-type,
+		.cell-total_record,
+		.cell-status {
+			width: 110px;
+		}
+
+		.cell-status {
+			// .txt-valid {
+			// 	color: #44b549;
+			// }
+
+			.txt-invalid {
+				color: #c7254e;
+			}
+
+			.txt-editing {
+				color: #8a6d3b;
+			}
+		}
+
+		th.cell-status {
+			.glyphicon {
+				cursor: pointer;
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+.cell-status-tips {
+	.popover-content {
+		font-size: 12px;
+		color: #666;
+	}
+}

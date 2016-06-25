@@ -1,0 +1,108 @@
+.customer-detail-section {
+	.panel-heading{
+    line-height: 22px;
+  }
+
+	.section-body {
+		min-height: 120px;
+		line-height: 40px;
+
+		.no-data-msg {
+			text-align: center;
+	    line-height: 120px;
+	    color: #999;
+	    margin: 0;
+		}
+
+		.content-block{
+      overflow: hidden;
+
+      .detail-cols{
+        overflow: hidden;
+      }
+      hr{
+        margin: 15px;
+        border-color: #e8e8ec;
+      }
+      .pager{
+        margin: 30px 15px 15px 15px;
+
+        a{
+          line-height: 24px;
+        }
+      }
+      .name{
+	      color: #9F9F9F;
+	      width: 70px;
+	      display: inline-block;
+	      text-overflow: ellipsis;
+	      white-space: nowrap;
+	      overflow: hidden;
+	      float: left;
+	    }
+	    .value{
+	      display: inline-block;
+	      float: left;
+	      margin-left: 5px;
+	      max-width: 190px;
+	      word-wrap: break-word;
+	      word-break: break-all;
+	    }
+    }
+
+		.timeline{
+      font-size: 14px;
+      line-height: 30px;
+      margin-top: 40px;
+      margin-left: 150px;
+
+      .item{
+        list-style: none;
+        clear: both;
+        width: 100%;
+        height: 1px;
+        .time{
+          float: left;
+          color: #9f9f9f;
+          text-align: right;
+          width: 190px;
+        }
+        .rows{
+          float: left;
+          margin-left: 30px;
+          .row{
+            position: relative;
+            .tail{
+              position: absolute;
+              left: 5px;
+              top: -20px;
+              height: 100%;
+              border-left: 2px solid #49B544;
+              z-index: 1;
+            }
+            .head{
+              position: absolute;
+              top: 10px;
+              left: 0;
+              width: 12px;
+              height: 12px;
+              background-color: #49B544;
+              border-radius: 100px;
+              border: 2px solid #fff;
+              z-index: 2;
+            }
+            .content{
+              padding: 0 0 10px 24px;
+              position: relative;
+              max-width: 380px;
+            }
+            > div {
+              float: left;
+            }
+          }
+        }
+      }
+    }
+
+	}
+}
