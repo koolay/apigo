@@ -1,173 +1,21 @@
-
-.page-title .page-breadcrumb {
-	margin: 0;
-	line-height: 30px;
-}
-
-.page-content {
-	min-height: 297px;
-}
-
-.page-container > .page-side {
-	padding-bottom: 8px;
-}
-
-.padding {
-	padding: 20px 30px;
-}
-
-.page-top {
-	.navbar-header .navbar-brand {
-		width: 208px;
-
-		> img {
-			width: 200px;
-		}
+.main-header {
+	.navbar-header > .navbar-brand {
+		color: #23527c;
 	}
 
-	.app-navright { 
-		margin-top: 0;
-		height: 64px;
-
-		> li {
-			height: 100%;
-			overflow: hidden;
-
-			a {
-				min-width: auto; 
-				font-size: 14px; 
-				color: #333; 
-				line-height: 1
-			}
-
-			a:hover, a:focus { text-decoration: none; }
-		}
-
-		li.user-info { 
-			margin: 12px 10px 0;
-
-			p { margin: 0; }
-		}
-
-		li.exit {
-			margin-top: 22px;
-
-			> a { border-left: 1px solid #999; } 
-		}
-
-		.tenant-name,
-		.company-name {
-			display: inline-block;
-			height: 20px;
-			padding: 0 5px;
-			font-size: 12px;
-			line-height: 20px;
-			color: #fff;
-			border-radius: 3px;
-			margin-right: 5px;
-		}
-
-		.tenant-name { background-color: #62c0e2; }
-		.company-name { background-color: #59b757}
+	.nav.nav-right > li > a {
+		color: #2477B2;
 	}
 }
 
-// menu icons
-.menu-icon {
-	display: inline-block;
-  width: 19px;
-	height: 17px;
-  margin: 0 10px 5px 0;
-  vertical-align: middle;
-  background: url(../images/menu-icons.png);
-
-  &.icon-indicator-data {
-  	background-position: -37px 0;
-  }
-
-  &.icon-population-tag {
-		background-position: -56px 0;
-  }
-
-  &.icon-360-image {
-		background-position: -93px 0;
-  }
-
-  &.icon-population-analysis {
-		background-position: 0 0;
-  }
-
-  &.icon-data-quality {
-		background-position: -18px 0;
+.main-footer {
+  > .container {
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
   }
 }
 
-// form panel
-.form-search {
-	// grid
-	> .container {
-		width: auto;
-
-		// grid rows
-		> .row {
-			margin: 0;
-
-			&:last-child .form-group {
-				margin-bottom: 0;
-			}
-
-			// grid cols
-			> .col-md-5 {
-				padding-left: 0;
-				padding-right: 0;
-
-				.form-group {
-					margin-left: 0;
-					margin-right: 0;
-
-					> .control-label.col-md-3 {
-						width: auto;
-						padding-left: 0;
-						padding-right: 0;
-					}
-				}
-			}
-
-			// grid col.button-wapper
-			.button-wapper {
-				text-align: right;
-			}
-		}
-	}
-}
-
-// cell-operation
-.data-view {
-	.data-table {
-		> thead > tr > th.cell-custom:last-child,
-		> tbody > tr > td.cell-operation {
-			width: 110px;
-			text-align: center;
-		}
-
-		> tbody > tr > td.cell-operation {
-			.link-button {
-				margin-right: 10px;
-			}
-
-			.link-button:last-child {
-				margin-right: 0;
-			}
-		}
-	}
-}
-
-// loading
-.loading-backdrop {
-	background-color: #fff;
-	
-	&.fade.in {
-		opacity: .5;
-		filter: alpha(opacity=50);
-	}
-}
+.main-container {}

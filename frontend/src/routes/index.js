@@ -6,6 +6,9 @@ import getBasePath from '../helpers/getBasePath'
 module.exports = {
   path: getBasePath(),
   component: require('../views/layouts/Main').default,
+  indexRoute: {
+  	component: require('../views/Index').default
+  },
   childRoutes: [
     require('./examples'),
     require('./norights'),
