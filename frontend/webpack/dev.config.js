@@ -3,7 +3,8 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import baseConfig, { commons, vendors } from './base.config';
-import { baseAlias } from '../src/config';
+
+console.log('path: ', path.resolve('./assets'))
 
 baseConfig.module.loaders.push({
   test: /\.css$/,
@@ -25,10 +26,10 @@ export default Object.assign({}, baseConfig, {
     vendor: vendors
   },
   output: {
-    path: path.resolve('./static/assets'),
+    path: path.resolve('./assets'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].[chunkhash:8].js',
-    publicPath: baseAlias + '/assets/'
+    publicPath: '/assets/'
   },
   plugins: [
     new webpack.DefinePlugin({

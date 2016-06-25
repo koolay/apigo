@@ -1,3 +1,7 @@
+body {
+	padding-bottom: 70px;
+}
+
 .main-header {
 	.navbar-header > .navbar-brand {
 		color: #23527c;
@@ -5,6 +9,14 @@
 
 	.nav.nav-right > li > a {
 		color: #2477B2;
+	}
+
+	// overwrite
+	&.navbar-default .navbar-nav > .active > a, 
+	&.navbar-default .navbar-nav > .active > a:hover, 
+	&.navbar-default .navbar-nav > .active > a:focus {
+		color: #2477B2;
+		background-color: #EFF7FD;
 	}
 }
 

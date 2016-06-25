@@ -4,7 +4,6 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import baseConfig, { commons, vendors } from './base.config';
-import { baseAlias } from '../src/config';
 
 baseConfig.module.loaders.push({
   test: /\.css$/,
@@ -24,9 +23,9 @@ export default Object.assign({}, baseConfig, {
     vendor: vendors
 	},
   output: {
-    path: path.resolve('./static/assets'),
+    path: path.resolve('../assets/dist'),
     filename: '[name].[chunkhash:8].js',
-    publicPath: baseAlias + '/assets/',
+    publicPath: '/dist/',
     /**
      * 按需加载的JS，其文件名配置
      * [name] 由 require.ensure([], function(){} , name) 产生，没有则值为[id]（webpack生成的ID）
@@ -43,7 +42,7 @@ export default Object.assign({}, baseConfig, {
     }),
     new ExtractTextPlugin('css/[name].[chunkhash:8].css'),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
+      filename: '../../views/index.swig',
       template: path.resolve('./src/static/index.template'),
       inject: 'body'
     }),

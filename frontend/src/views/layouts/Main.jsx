@@ -4,59 +4,67 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 
-import {actions as mainActions} from '../../redux/modules/main';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
 
-import TipMixin from '../../helpers/tipMixin';
+// import {actions as mainActions} from '../../redux/modules/main';
+
+// import TipMixin from '../../helpers/tipMixin';
+import getBasePath from '../../helpers/getBasePath';
 
 import '../../static/css/bootstrap/less/bootstrap.less';
 import '../../static/css/main.less';
 
 
 const Main = React.createClass({
-	mixins: [TipMixin],
+	// mixins: [TipMixin],
 
 	render() {
 		return (
 			<div role="page">
-				<Navbar staticTop componentClass="header" className="main-header">
+				<header>
+					<Navbar staticTop className="main-header">
+				    <Navbar.Header>
+				      <Navbar.Brand>
+				        <a href="/">APICloud</a>
+				      </Navbar.Brand>
+				    </Navbar.Header>
 
-			    <Navbar.Header>
-			      <Navbar.Brand>
-			        <a href="">APICloud</a>
-			      </Navbar.Brand>
-			    </Navbar.Header>
-
-			    <Nav pullRight className="nav-right">
-			    	<NavItem className="exit" href="/bin/create">CREATE BIN</NavItem>
-			    	<NavItem className="exit" href="https://github.com/koolay/apigo" target="_brank">GITHUB</NavItem>
-		      </Nav>
-				</Navbar>
+				    <Nav pullRight className="nav-right">
+				    	<LinkContainer to={`${getBasePath()}/bin/create`}><NavItem className="exit">CREATE BIN</NavItem></LinkContainer>
+				    	<NavItem className="exit" href="https://github.com/koolay/apigo" target="_brank">GITHUB</NavItem>
+			      </Nav>
+					</Navbar>
+				</header>
 				
 				<div className="main-container">
 					{this.props.children}
 				</div>
 
-				<Navbar componentClass="footer" fixedBottom={true} className="main-footer">
-					Copyright  2016 明源云 版权所有 鄂ICP备15011531号-1
-				</Navbar>
+				<footer className="hidden-xs">
+					<Navbar fixedBottom={true} className="main-footer">
+						Copyright  2016 明源云 版权所有 鄂ICP备15011531号-1
+					</Navbar>
+				</footer>
 			</div>
 		)
 	}
 
 })
 
-const stateToProps = (state) => {
-  return {
-  	...state.main,
-  	tipOptions: state.tip.tipOptions
-  }
-}
+// const stateToProps = (state) => {
+//   return {
+//   	...state.main,
+//   	tipOptions: state.tip.tipOptions
+//   }
+// }
 
-const dispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(mainActions, dispatch) }
-}
+// const dispatchToProps = (dispatch) => {
+//   return { actions: bindActionCreators(mainActions, dispatch) }
+// }
 
-export default connect(stateToProps, dispatchToProps)(Main);
+// export default connect(stateToProps, dispatchToProps)(Main);
+export default Main
+

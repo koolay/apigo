@@ -4,11 +4,10 @@
   "description": "apicloud-frontend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch static --watch webpack --exec babel-node src/server.js",
-    "start": "npm run build && NODE_ENV=production babel-node src/server.js",
+    "dev": "nodemon --watch static --watch webpack --exec babel-node server.js",
     "build": "npm run clean && NODE_ENV=production webpack",
     "buildCmd": "npm run clean && set NODE_ENV=production && webpack",
-    "clean": "rm -rf static/assets"
+    "clean": "rm -rf ../assets/dist"
   },
   "repository": {
     "type": "git",

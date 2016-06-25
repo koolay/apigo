@@ -6,7 +6,7 @@ const staticResources = require('koa-static');
 const render = require('koa-ejs');
 const bodyParser = require('koa-bodyparser');
 
-const config = require('./config');
+const config = require('./src/config');
 
 const app = koa();
 
@@ -24,7 +24,7 @@ if(__PROD__){
 	app.use(staticResources(path.join(__dirname, '../')));
 }else{
 	const webpack = require('webpack');
-	const devconfig = require('../webpack-dev.config');
+	const devconfig = require('./webpack-dev.config');
 	const compiler = webpack(devconfig);
 
 	app.use(require('koa-webpack-dev-middleware')(compiler, {
@@ -42,7 +42,7 @@ if(__PROD__){
 // app.use(staticResources(path.join(__dirname, '../')));
 
 render(app, {
-  root: path.join(__dirname, '../'),
+  root: path.join(__dirname, './'),
   layout: false,
   viewExt: 'html',
   debug: true,
@@ -144,7 +144,7 @@ app.use(apiRouter.routes());
 //==================================================
 
 
-let token = '', siteDir = config.baseAlias.substr(1), indexHtml = __PROD__ ? `/${siteDir}/index` : `/${siteDir}/index-dev`;
+// let token = '', siteDir = 'static', indexHtml = __PROD__ ? `/${siteDir}/index` : `/${siteDir}/index-dev`;
 
 
 /**
@@ -152,26 +152,34 @@ let token = '', siteDir = config.baseAlias.substr(1), indexHtml = __PROD__ ? `/$
  */
 let router = new Router();
 
-router.all('/', function *() {
-	this.redirect(`${token}/${siteDir}`);
-	this.status = 302;
-});
+// router.all('/', function *() {
+// 	this.redirect(`${token}/${siteDir}`);
+// 	this.status = 302;
+// });
 
-router.get(`${token}/${siteDir}`, function *() {
-	yield this.render(indexHtml);
-});
+// router.get(`${token}/${siteDir}`, function *() {
+// 	yield this.render(indexHtml);
+// });
 
-router.get(`${token}/${siteDir}/*`, function *() {
-	yield this.render(indexHtml);
+// router.get(`${token}/${siteDir}/*`, function *() {
+// 	yield this.render(indexHtml);
+// });
+
+// router.get('*', function *(next) {
+// 	let urlKeys = this.request.path.split('/')
+	
+// 	if(urlKeys.length > 1 && urlKeys[2] === siteDir){
+// 		token = '/' + urlKeys[1]
+// 		yield this.render(indexHtml);
+// 	}
+// });
+
+router.get('/', function *() {
+	yield this.render('index');
 });
 
 router.get('*', function *(next) {
-	let urlKeys = this.request.path.split('/')
-	
-	if(urlKeys.length > 1 && urlKeys[2] === siteDir){
-		token = '/' + urlKeys[1]
-		yield this.render(indexHtml);
-	}
+	yield this.render('index');
 });
 
 app.use(router.routes());

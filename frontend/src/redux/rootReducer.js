@@ -4,6 +4,8 @@ import {routerReducer as routing } from 'react-router-redux';
 import tip from './modules/tip';
 import main from './modules/main';
 
+import binAddOrEdit from './modules/bin/addOrEdit';
+
 import indicatorList from './modules/examples/indicator/list';
 import imageList from './modules/examples/360image/list';
 import imageDetail from './modules/examples/360image/detail';
@@ -14,6 +16,7 @@ import tagAddOrEdit from './modules/examples/tag/addOrEdit';
 const rootReducer = combineReducers({
 	tip,
   main,
+  binAddOrEdit,
   indicatorList,
   imageList,
   imageDetail,

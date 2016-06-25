@@ -1,6 +1,1 @@
-{% extends 'layout.swig' %}
-{% set title = 'Homepage' %}
-
-{% block body %}
-<h2>Welcome to home!</h2>
-{% endblock %}
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><link rel="icon" href="http://yunshequ00.oss-cn-hangzhou.aliyuncs.com/predefine/yun-she-qu.ico" otype="image/x-icon"/><link rel="shortcut icon" href="http://yunshequ00.oss-cn-hangzhou.aliyuncs.com/predefine/yun-she-qu.ico" type="image/x-icon"/><title>明源云</title><link href="/dist/css/main.7a9bf98c.css" rel="stylesheet"></head><body><div id="root"></div><script type="text/javascript" src="/dist/common.52da7e5d.js"></script><script type="text/javascript" src="/dist/vendor.016c89ee.js"></script><script type="text/javascript" src="/dist/main.7a9bf98c.js"></script></body></html>
