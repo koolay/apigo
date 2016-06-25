@@ -57,25 +57,8 @@ module.exports.views = {
   *                                                                           *
   ****************************************************************************/
 
-  /****************************************************************************
-  *                                                                           *
-  * Using Multiple Layouts                                                    *
-  *                                                                           *
-  * If you're using the default `ejs` or `handlebars` Sails supports the use  *
-  * of multiple `layout` files. To take advantage of this, before rendering a *
-  * view, override the `layout` local in your controller by setting           *
-  * `res.locals.layout`. (this is handy if you parts of your app's UI look    *
-  * completely different from each other)                                     *
-  *                                                                           *
-  * e.g. your default might be                                                *
-  * layout: 'layouts/public'                                                  *
-  *                                                                           *
-  * But you might override that in some of your controllers with:             *
-  * layout: 'layouts/internal'                                                *
-  *                                                                           *
-  ****************************************************************************/
-
-  layout: 'layout',
+  //because using swig
+  layout: false,
 
   /****************************************************************************
   *                                                                           *

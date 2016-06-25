@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{{ title|default('kong admin') }}</title>
+<title>{{ title|default('Apigo') }}</title>
 <!-- Viewport mobile tag for sensible mobile support -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <!--STYLES-->
@@ -15,33 +15,6 @@
 <div class="ui grid" style="margin-top: 50px;">
     <div class="one wide column"></div>
     <div class="three wide column">
-        <div class="ui label">
-            Welcome {{req.user.username }}!
-            <a href="/logout"><i class="power icon"></i>logout</a>
-        </div>
-        <div class="ui vertical menu">
-            <div class="item">
-                <div class="header">接  口</div>
-                <div class="menu">
-                    <a class="item" href="/apis">接口列表</a>
-                    <a class="item" href="/admin/api">添加接口</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="header">接口用户</div>
-                <div class="menu">
-                    <a class="item" href="/consumers">用户列表</a>
-                    <a class="item" href="/admin/consumer">添加用户</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="header">插件</div>
-                <div class="menu">
-                    <a class="item" href="/plugins">插件列表</a>
-                    <a class="item" href="/admin/plugin">添加插件</a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="ten wide stretched column">
         <!-- Site content !-->
