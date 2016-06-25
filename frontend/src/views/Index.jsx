@@ -13,7 +13,7 @@ const Index = React.createClass({
 
 	render() {
 		return (
-			<div>
+			<div data-page="index">
 				<div className="showcase">
 					<Grid>
 						<h1>APICloud</h1>

@@ -31,3 +31,14 @@ body {
 }
 
 .main-container {}
+
+// overwrite bootstrap styles
+.input-group.multi {
+	> .form-control {
+		width: 50%;
+
+		&:last-of-type {
+			margin-left: -1px;
+		}
+	}
+}

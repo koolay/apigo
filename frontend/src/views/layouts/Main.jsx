@@ -30,12 +30,15 @@ const Main = React.createClass({
 				      <Navbar.Brand>
 				        <a href="/">APICloud</a>
 				      </Navbar.Brand>
+				      <Navbar.Toggle />
 				    </Navbar.Header>
-
-				    <Nav pullRight className="nav-right">
-				    	<LinkContainer to={`${getBasePath()}/bin/create`}><NavItem className="exit">CREATE BIN</NavItem></LinkContainer>
-				    	<NavItem className="exit" href="https://github.com/koolay/apigo" target="_brank">GITHUB</NavItem>
-			      </Nav>
+				    
+				    <Navbar.Collapse>
+					    <Nav pullRight className="nav-right">
+					    	<LinkContainer to={`${getBasePath()}/bin/create`}><NavItem className="exit">CREATE BIN</NavItem></LinkContainer>
+					    	<NavItem className="exit" href="https://github.com/koolay/apigo" target="_brank">GITHUB</NavItem>
+				      </Nav>
+				    </Navbar.Collapse>
 					</Navbar>
 				</header>
 				
