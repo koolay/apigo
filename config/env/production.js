@@ -36,5 +36,5 @@ module.exports = {
   // }
   jwtSecret: 'mysuperprodsecret',
   jwtExpires: 90000,
-  kongApi: 'http://127.0.0.1:8001'
+  projectId: '56cb91bdc3464f14678934ca'
 };

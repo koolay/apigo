@@ -1,15 +1,15 @@
 
 module.exports.policies = {
 
-  '*': 'isAuthenticated',
+  //'*': 'isAuthenticated',
 
-  HomeController: {
-    '*': true
-  },
+  //HomeController: {
+    //'*': true
+  //},
 
-  UsersController: {
-    login: true,
-    signup: true
-  }
+  //UsersController: {
+    //login: true,
+    //signup: true
+  //}
 
 };
