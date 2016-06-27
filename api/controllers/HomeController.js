@@ -6,26 +6,12 @@
  */
 module.exports = {
     index: function(req, res) {
+        //return res.json({result: true});
         return res.view('index');
     },
     create: function(req, res) {
-        var api = new Apis({
-            projectId: MongodbService.newObjectId(sails.config.projectId),
-            version: '0.1.0',
-            summary: 'get user list',
-            description: 'get user list, paging',
-            method: 'GET',
-            path: '/user/list',
-            headers: [{name: 'token', required: false, description: 'token for login'}],
-            parameters: [{name: 'id', required: true, description: 'id of user', format:'int'}],
-            response: {
-                description: 'result return',
-                httpCode: 200,
-                data: [{name: 'result', description: 'it is true or false', format:'bool'},
-                    {name: 'msg', description: 'message of return', length: 50},
-                    {name: 'data', description: 'the data of return', format: 'json'}
-                ]
-            }
+            //projectId: MongodbService.newObjectId(sails.config.projectId),
+        var api = new Project({
         });
 
         var error = api.validateSync();
@@ -45,7 +31,7 @@ module.exports = {
     },
 
     list: function(req, res) {
-        Apis.find({}).select({
+        Project.find({}).select({
             _id: 0
         }).sort('-_id').exec(function(err, data) {
             if (err) {

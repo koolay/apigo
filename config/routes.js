@@ -9,6 +9,7 @@ module.exports.routes = {
 
   '/go': 'ApiController.go',
   'get /apis/list': 'ApiController.list',
+  'get /apis/create': 'ApiController.create',
   'get /apis/:id': 'ApiController.detail',
   'post /apis': 'ApiController.create',
 
