@@ -17,16 +17,31 @@ module.exports = {
             dataSchema: {
                 type: 'object',
                 properties: [{
-                    name: 'result',
-                    type: 'boolean',
-                    description: '是否成功'
+                    name: 'errcode',
+                    type: 'integer',
+                    description: '错误码,等于0表示正常'
                 }, {
-                    name: 'msg',
+                    name: 'errmsg',
                     type: 'string',
                     description: '提示信息'
+                }, {
+                    name: 'data',
+                    type: 'object',
+                    properties: [{
+                        name: 'timestamp',
+                        type: 'integer',
+                        description: '时间'
+                    }, {
+                        name: 'prepare_id',
+                        type: 'string',
+                        description: '预支付id'
+                    }, {
+                        name: 'mch_id',
+                        type: 'string',
+                        description: '商户号'
+                    }]
                 }]
             }
-
         };
 
         var response401 = {
@@ -37,14 +52,29 @@ module.exports = {
 
         //创建接口
         var path = new Path({
+            projectId: '57729f9d5df150cc0ab98825',
             method: 'post',
-            summary: 'mysoft.paas.mall.pay',
-            path: '/pay/create',
-            description: '支付订单',
+            summary: '创建待支付订单',
+            path: '/api/pay/create',
+            description: '创建待支付订单,发起微信支付前调用',
             operationId: '',
             consumes: ['multipart/form-data'],
             produces: ['application/json'],
             deprecated: false,
+            parameters: [{
+                name: 'seller_code',
+                in : 'body',
+                description: '商家代码',
+                required: true,
+                type: 'string'
+            }, {
+
+                name: 'total_fee',
+                in : 'body',
+                description: '总费用,保留2位小数',
+                required: true,
+                type: 'number'
+            }],
             response: [response200, response401]
 
         });

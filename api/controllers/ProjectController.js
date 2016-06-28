@@ -7,7 +7,6 @@
 
 module.exports = {
 
-
     create: function(req, res) {
 
         var project = new Project({

@@ -7,10 +7,12 @@
  */
 var mongoose = require('mongoose');
 var methodEnum = ['get', 'post', 'put', 'fetch'];
-var typeEnum = ['string', 'integer', 'boolean', 'array'];
+var typeEnum = ['string', 'integer', 'boolean', 'array', 'file', 'number', 'object'];
+var paramInEnum = ['body', 'path', 'query', 'header', 'formData'];
 var Schema = mongoose.Schema;
 
 var responseSubSchema = new Schema({
+
     httpCode: {
         type: Number,
         min: 200,
@@ -26,6 +28,7 @@ var responseSubSchema = new Schema({
             default: 'object'
         },
         properties: [{
+            _id: false,
             name: {
                 type: String,
                 required: true
@@ -48,6 +51,10 @@ var responseSubSchema = new Schema({
 module.exports = {
 
     schema: {
+        projectId: {
+            type: String,
+            required: true
+        },
         method: {
             type: String,
             enum: methodEnum,
@@ -75,6 +82,31 @@ module.exports = {
             type: [String],
             default: ['application/json']
         },
+        parameters: [{
+            _id: false,
+            name: {
+                type: String,
+                required: true,
+            },
+            in : {
+                type: String,
+                enum: paramInEnum,
+                required: true,
+                default: 'body'
+            },
+            description: String,
+            required: {
+                type: Boolean,
+                required: true,
+                default: true
+            },
+            type: {
+                type: String,
+                required: true,
+                enum: typeEnum,
+                default: 'string'
+            }
+        }],
         response: [responseSubSchema],
         deprecated: {
             type: Boolean,

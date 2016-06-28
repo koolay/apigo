@@ -17,6 +17,10 @@ module.exports = {
 
     list: function(req, res) {
 
+    },
+
+    go: function(req, res) {
+
     }
 
 };
