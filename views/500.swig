@@ -57,7 +57,7 @@
         <h2>
           Something isn't right here.
         </h2>
-        {% if (typeof data !== 'undefined') %}
+        {% if (data) %}
         <pre class="error"><code>
            {{ data }}
         </code></pre>

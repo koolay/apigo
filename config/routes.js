@@ -13,4 +13,7 @@ module.exports.routes = {
   'get /apis/:id': 'ApiController.detail',
   'post /apis': 'ApiController.create',
 
+   //创建项目
+  'post /projects': 'ProjectController.create'
+
 };

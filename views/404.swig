@@ -52,11 +52,11 @@
           Something's fishy here.
         </h1>
         <h2>
-          <% if (typeof data!== 'undefined') { %>
-          <%= data %>
-          <% } else { %>
+          {% if (data)  %}
+          {{ data }}
+          {%  else %}
           The page you were trying to reach doesn't exist.
-          <% } %>
+          {% endif %}
         </h2>
         <p class="help">
           <a href="http://en.wikipedia.org/wiki/HTTP_404">Why</a> might this be happening?
