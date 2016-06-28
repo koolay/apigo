@@ -5,9 +5,7 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 var mongoose = require('mongoose');
-var Tag = require('./Tag.js');
 var Schema = mongoose.Schema;
-//var path = require('./Path.js');
 
 module.exports = {
 
@@ -41,13 +39,13 @@ module.exports = {
             required: true,
             default: '/',
         },
-        tags: [Tag.schema],
+        //tags: [],
         schemes: {
             type: [String],
             required: true,
             default: ['http']
         },
-        //paths: [path.schema],
+        paths: [String],
         externalDocs: {
             description: String,
             url: String

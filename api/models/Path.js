@@ -9,21 +9,6 @@ var mongoose = require('mongoose');
 var methodEnum = ['get', 'post', 'put', 'fetch'];
 var typeEnum = ['string', 'integer', 'boolean', 'array'];
 var Schema = mongoose.Schema;
-/******* sub schema *************/
-var propertySubSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        enum: typeEnum,
-        default: 'string'
-    },
-    description: String
-}, {
-    _id: false
-});
 
 var responseSubSchema = new Schema({
     httpCode: {
@@ -40,7 +25,18 @@ var responseSubSchema = new Schema({
             required: true,
             default: 'object'
         },
-        properties: [propertySubSchema]
+        properties: [{
+            name: {
+                type: String,
+                required: true
+            },
+            type: {
+                type: String,
+                enum: typeEnum,
+                default: 'string'
+            },
+            description: String
+        }]
 
     },
     default: {

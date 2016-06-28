@@ -14,7 +14,7 @@ module.exports = {
         var response200 = {
             httpCode: 200,
             description: '正常返回',
-            dataSchema: [{
+            dataSchema: {
                 type: 'object',
                 properties: [{
                     name: 'result',
@@ -25,7 +25,7 @@ module.exports = {
                     type: 'string',
                     description: '提示信息'
                 }]
-            }]
+            }
 
         };
 
