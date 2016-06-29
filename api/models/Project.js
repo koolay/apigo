@@ -45,7 +45,6 @@ module.exports = {
             required: true,
             default: ['http']
         },
-        paths: [String],
         externalDocs: {
             description: String,
             url: String

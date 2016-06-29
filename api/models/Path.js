@@ -22,26 +22,24 @@ var responseSubSchema = new Schema({
     description: String,
     //实际是schema,
     dataSchema: {
+        _id: false,
         type: {
             type: String,
-            required: true,
-            default: 'object'
+            enum: typeEnum,
         },
-        properties: [{
-            _id: false,
-            name: {
-                type: String,
-                required: true
-            },
-            type: {
-                type: String,
-                enum: typeEnum,
-                default: 'string'
-            },
-            description: String
-        }]
+        properties: [{}]
 
     },
+    headers:[{
+        _id: false,
+        name: String,
+        type: {
+            type: String,
+            enum: typeEnum
+        },
+        description: String,
+        format: String
+    }],
     default: {
         description: String
     },
@@ -55,11 +53,17 @@ module.exports = {
             type: String,
             required: true
         },
+        name: {
+            type: String,
+            required: true,
+            match: /^[a-zA-Z]+[a-zA-Z_\.\-]*/
+        },
         method: {
             type: String,
             enum: methodEnum,
             required: true
         },
+        tags: [String],
         summary: {
             type: String,
             required: true,
@@ -105,9 +109,10 @@ module.exports = {
                 required: true,
                 enum: typeEnum,
                 default: 'string'
-            }
+            },
+            format: String
         }],
-        response: [responseSubSchema],
+        responses: [responseSubSchema],
         deprecated: {
             type: Boolean,
             required: true,
@@ -116,4 +121,14 @@ module.exports = {
 
     },
 
+    constructSchema: function(schemaDefinedAbove, sails) {
+        var mySchema = new sails.mongoose.Schema(schemaDefinedAbove);
+        mySchema.index({
+            name: 1,
+        }, {
+            unique: true
+        });
+
+        return mySchema;
+    },
 }

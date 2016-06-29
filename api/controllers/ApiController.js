@@ -6,6 +6,7 @@
  */
 
 var nock = require('nock');
+const PROJECT_ID = '57729f9d5df150cc0ab98825';
 
 module.exports = {
 
@@ -41,18 +42,27 @@ module.exports = {
                         description: '商户号'
                     }]
                 }]
-            }
+            },
+            headers: [{
+                name: 'X-Rate-Limit-Limit"',
+                type: 'integer',
+                description: 'The number of allowed requests in the current period'
+            }, {
+                name: 'X-Rate-Limit-Remaining',
+                type: 'integer',
+                description: 'The number of remaining requests in the current period'
+            }]
         };
 
         var response401 = {
             httpCode: 401,
             description: '没有授权',
-            dataSchema: false,
         };
 
         //创建接口
         var path = new Path({
-            projectId: '57729f9d5df150cc0ab98825',
+            projectId: PROJECT_ID,
+            name: 'cic.market.api.pay.create',
             method: 'post',
             summary: '创建待支付订单',
             path: '/api/pay/create',
@@ -75,7 +85,7 @@ module.exports = {
                 required: true,
                 type: 'number'
             }],
-            response: [response200, response401]
+            responses: [response200, response401]
 
         });
 
@@ -101,9 +111,26 @@ module.exports = {
     },
 
     detail: function(req, res) {
-        return res.json({
-            result: true
-        });
+
+        var query = {};
+        var pathId = req.param('id');
+        if (pathId && MongodbService.isObjectId(pathId)) {
+            query['_id'] = MongodbService.newObjectId(pathId);
+        } else {
+            var name = req.param('name');
+            if (name) {
+                query['name'] = name;
+            }
+        }
+        sails.log.info(query);
+        Path.findOne(query).exec(function(err, path) {
+            if (err) {
+                return res.negotiate(err);
+            } else {
+                return res.json(path);
+            }
+
+        })
 
     },
 

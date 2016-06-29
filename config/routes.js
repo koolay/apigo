@@ -12,6 +12,7 @@ module.exports.routes = {
   'post /apis': 'ApiController.create',
 
    //创建项目
-  'post /projects': 'ProjectController.create'
+  'post /projects': 'ProjectController.create',
+  'get /projects/:id': 'ProjectController.swagger'
 
 };
