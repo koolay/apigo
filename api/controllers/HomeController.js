@@ -7,6 +7,7 @@
 module.exports = {
     index: function(req, res) {
         //return res.json({result: true});
+
         return res.view('index');
     },
     create: function(req, res) {
