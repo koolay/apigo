@@ -63,7 +63,8 @@ module.exports = {
             enum: methodEnum,
             required: true
         },
-        tags: [String],
+        //所属项目模块
+        tag: String,
         summary: {
             type: String,
             required: true,

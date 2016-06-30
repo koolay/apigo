@@ -66,6 +66,7 @@ module.exports = {
         var path = new Path({
             projectId: PROJECT_ID,
             name: 'cic.market.api.pay.create',
+            tag: '支付模块',
             method: 'post',
             summary: '创建待支付订单',
             path: '/api/pay/create',
