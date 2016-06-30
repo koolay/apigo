@@ -28,10 +28,10 @@ module.exports = {
             contact: {
                 email: String
             },
-            license: {
-                name: String,
-                url: String
-            }
+            //license: {
+                //name: String,
+                //url: String
+            //}
         },
         host: String,
         basePath: {

@@ -21,7 +21,10 @@ ajv.addKeyword('ObjectId', {
     }
 });
 
-module.exports.ValidateService = {
+module.exports = {
+    isEmpty: function(obj) {
+        return !Object.keys(obj).length;
+    },
 
     checkMockData: function(input) {
 
@@ -50,7 +53,7 @@ module.exports.ValidateService = {
                     "type": "string"
                 },
             },
-            "required": [ "api_id", "content_type"]
+            "required": ["api_id", "content_type"]
         };
 
         var valid = ajv.validate(schema, input);

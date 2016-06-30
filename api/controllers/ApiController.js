@@ -17,34 +17,37 @@ module.exports = {
             description: '正常返回',
             dataSchema: {
                 type: 'object',
-                properties: [{
-                    name: 'errcode',
-                    type: 'integer',
-                    description: '错误码,等于0表示正常'
-                }, {
-                    name: 'errmsg',
-                    type: 'string',
-                    description: '提示信息'
-                }, {
-                    name: 'data',
-                    type: 'object',
-                    properties: [{
-                        name: 'timestamp',
+                properties: {
+                    errcode: {
                         type: 'integer',
-                        description: '时间'
-                    }, {
-                        name: 'prepare_id',
+                        description: '错误码,等于0表示正常'
+                    },
+                    errmsg: {
                         type: 'string',
-                        description: '预支付id'
-                    }, {
-                        name: 'mch_id',
-                        type: 'string',
-                        description: '商户号'
-                    }]
-                }]
+                        description: '提示信息'
+                    },
+                    data: {
+                        type: 'object',
+                        properties: {
+                            timestamp: {
+                                type: 'integer',
+                                description: '时间'
+                            },
+                            prepare_id: {
+                                type: 'string',
+                                description: '预支付id'
+                            },
+                            mch_id: {
+                                type: 'string',
+                                description: '商户号'
+                            }
+                        }
+                    }
+
+                }
             },
             headers: [{
-                name: 'X-Rate-Limit-Limit"',
+                name: 'X-Rate-Limit-Limit',
                 type: 'integer',
                 description: 'The number of allowed requests in the current period'
             }, {
@@ -73,14 +76,14 @@ module.exports = {
             deprecated: false,
             parameters: [{
                 name: 'seller_code',
-                in : 'body',
+                in : 'formData',
                 description: '商家代码',
                 required: true,
                 type: 'string'
             }, {
 
                 name: 'total_fee',
-                in : 'body',
+                in : 'formData',
                 description: '总费用,保留2位小数',
                 required: true,
                 type: 'number'

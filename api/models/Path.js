@@ -27,7 +27,7 @@ var responseSubSchema = new Schema({
             type: String,
             enum: typeEnum,
         },
-        properties: [{}]
+        properties: {}
 
     },
     headers:[{
