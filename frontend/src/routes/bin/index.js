@@ -1,17 +1,10 @@
 module.exports = {
   path: 'bin',
   childRoutes: [{
-    path: 'create',
+    path: 'define(/:binId)',
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
-        cb(null, require('../../views/bin/AddOrEdit').default)
-      })
-    }
-  }, {
-    path: 'edit/:binId',
-    getComponent(nextState, cb) {
-      require.ensure([], (require) => {
-        cb(null, require('../../views/bin/AddOrEdit').default)
+        cb(null, require('../../views/bin/Define').default)
       })
     }
   }]

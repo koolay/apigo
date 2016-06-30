@@ -23,7 +23,7 @@ const Index = React.createClass({
 
 				<Grid>
 					<div className="btn-wrapper">
-						<LinkContainer to={`${getBasePath()}/bin/create`}><Button componentClass="a" bsStyle="success" bsSize="large" style={{width: '300px'}}>Create Bin</Button></LinkContainer>
+						<LinkContainer to={`${getBasePath()}/bin/define`}><Button componentClass="a" bsStyle="success" bsSize="large" style={{width: '300px'}}>Create Bin</Button></LinkContainer>
 					</div>
 				</Grid>
 			</div>

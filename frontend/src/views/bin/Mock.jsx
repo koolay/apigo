@@ -16,18 +16,18 @@ import Popover from 'react-bootstrap/lib/Popover';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { actions as actionCreators } from '../../redux/modules/bin/addOrEdit';
+import { actions as actionCreators } from '../../redux/modules/bin/mock';
 
-import './add-edit.less';
+import './mock.less';
 
-const AddOrEdit = React.createClass({
+const Mock = React.createClass({
 
 	render() {
 		const panelHeader = (<h3>接口定义</h3>)
 		const panelFooter = (<Button pullRight bsStyle="primary">保存</Button>)
 
 		return (
-			<Grid data-page="bin/create">
+			<Grid data-page="bin/mock">
 				<Panel bsStyle="primary" header={panelHeader} footer={panelFooter}>
 		      <Row>
 		      	<Col sm={6}>
@@ -112,7 +112,7 @@ const AddOrEdit = React.createClass({
 
 const stateToProps = (state) => {
   return {
-    ...state.binAddOrEdit,
+    ...state.binMock,
     tipOptions: state.tip.tipOptions
   }
 }
@@ -121,4 +121,4 @@ const dispatchToProps = (dispatch) => {
 	return { actions: bindActionCreators(actionCreators, dispatch) }
 }
 
-export default connect(stateToProps, dispatchToProps)(AddOrEdit);
+export default connect(stateToProps, dispatchToProps)(Mock);
