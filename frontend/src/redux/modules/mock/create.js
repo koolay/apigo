@@ -65,7 +65,8 @@ export const actions = {
 // ------------------------------------
 
 const initialState = {
-  list: null
+  detail: null,
+  saved: false
 }
 
 

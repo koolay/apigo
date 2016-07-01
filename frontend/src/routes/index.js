@@ -10,7 +10,7 @@ module.exports = {
   childRoutes: [
     require('./examples'),
     require('./bin'),
-    require('./mock/list'),
+    require('./mock'),
     require('./norights'),
     require('./404')
   ]

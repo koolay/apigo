@@ -23,12 +23,13 @@ import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/bin/define';
 
-import './define.less';
+import '../bin/define.less';
+import './create.less';
 
 const DEFALUT_METHOD = 'GET'
 const DEFALUT_CONTENT_TYPE = 'application/json'
 
-const Define = React.createClass({
+const Create = React.createClass({
 	// CodeMirror 在初始后，会创建一个实例对象，如果再次对同一个textarea进行初始化，会出现多个editor
 	// 这里把editor缓存起来
 	codeEditors: {},
@@ -36,9 +37,7 @@ const Define = React.createClass({
 		return {
 			errors: {},
 			inputValues: {
-				name: null, //appId
 				summary: null, //接口名称
-				path: null, //接口路径
 				description: null,		
 				/**
 				 * request对象，包括method, contentType, params, headers
@@ -58,7 +57,7 @@ const Define = React.createClass({
 				 * @type {Array}
 				 */
 				responses: [{
-					httpCode: 200,
+					httpCode: null,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,
@@ -118,7 +117,7 @@ const Define = React.createClass({
 
 	render() {
 		const { errors, inputValues, headerInputs } = this.state
-		const panelHeader = (<h3>接口定义</h3>)
+		const panelHeader = (<h3>数据模拟</h3>)
 		const panelFooter = (<Button pullRight bsStyle="primary" onClick={this.handleSubmit}>保存</Button>)
 		const codeMode = {name: 'javascript', json: true}
 		const tipText = 
@@ -161,24 +160,14 @@ const Define = React.createClass({
 		const tipResponseBody = (<Popover id="tip-response" className="field-tips">{tipNodes}</Popover>)
 
 		return (
-			<Grid data-page="bin/define">
+			<Grid data-page="mock/create">
 				<Panel ref="panel" header={panelHeader} footer={panelFooter}>
 			    <form>
 			    	<Row>
 			      	<Col sm={6}>
-			      		<FormGroup validationState={errors.name}>
-		      				<ControlLabel>ApiID*</ControlLabel>
-		      				<FormControl ref="name" type="text" placeholder="唯一的API接口标识符" value={inputValues.name} onChange={this.inputOnChange.bind(this, 'name')} />
-		      			</FormGroup>
-
-		      			<FormGroup validationState={errors.summary}>
+			      		<FormGroup validationState={errors.summary}>
 		      				<ControlLabel>Name*</ControlLabel>
 		      				<FormControl ref="summary" type="text" placeholder="接口名称" value={inputValues.summary} onChange={this.inputOnChange.bind(this, 'summary')} />
-		      			</FormGroup>
-
-		      			<FormGroup validationState={errors.path}>
-		      				<ControlLabel>Path*</ControlLabel>
-		      				<FormControl ref="path" type="text" placeholder="接口地址" value={inputValues.path} onChange={this.inputOnChange.bind(this, 'path')} />
 		      			</FormGroup>
 
 		      			<FormGroup>
@@ -224,7 +213,7 @@ const Define = React.createClass({
 		      				})}
 		      			</FormGroup>
 
-		      			<FormGroup validationState={errors['request.params']}>
+		      			<FormGroup>
 		      				<ControlLabel>
 		      					Request Params
 		      					<OverlayTrigger placement="right" overlay={tipParams}>
@@ -285,7 +274,7 @@ const Define = React.createClass({
 					      				})}
 					      			</FormGroup>
 
-					      			<FormGroup validationState={errors[bodyRef]}>
+					      			<FormGroup validationState={errors.responses}>
 					      				<ControlLabel>
 					      					Response Body*
 					      					<OverlayTrigger placement="left" overlay={tipResponseBody}>
@@ -408,13 +397,14 @@ const Define = React.createClass({
 		const name = 'request.params'
 		const { inputValues } = this.state
 		const inputValue = this.refs[name].getValue()
+		// let error = !!inputValue ? null : 'error'
 
 		// 这里只更新当前输入框的值和状态
 		this.setState({
-			errors: {
-				...this.state.errors,
-				[name]: this.validRequestParamsInput(inputValue)
-			},
+			// errors: {
+			// 	...this.state.errors,
+			// 	[name]: error
+			// },
 			inputValues: {
 				...inputValues,
 				request: {
@@ -423,18 +413,6 @@ const Define = React.createClass({
 				}
 			}
 		})
-	},
-
-	validRequestParamsInput(inputValue) {
-		let error = null
-
-		try {
-			inputValue && JSON.parse( inputValue )
-		} catch(e) {
-			error = 'error'
-		}
-
-		return error
 	},
 
 	requestHeadersInputOnChange(name, index, type) {
@@ -612,6 +590,7 @@ const Define = React.createClass({
 		const name = `responses.schema${groupIndex}`
 		const { inputValues } = this.state
 		const inputValue = this.refs[name].getValue()
+		// let error = !!inputValue ? null : 'error'
 		
 		let responses = inputValues.responses.map((response, i) => {
 				if (i === groupIndex) {
@@ -620,31 +599,20 @@ const Define = React.createClass({
 				return response
 			})
 
-		console.log('responses:', responses) 	
+		console.log('responses:', responses) 
+		
 
 		// 这里只更新当前输入框的值和状态
 		this.setState({
-			errors: {
-				...this.state.errors,
-				[name]: this.validResponseBodyInput(inputValue)
-			},
+			// errors: {
+			// 	...this.state.errors,
+			// 	[name]: error
+			// },
 			inputValues: {
 				...inputValues,
 				responses
 			}
 		})
-	},
-
-	validResponseBodyInput(inputValue) {
-		let error = !!inputValue ? null : 'error'
-
-		try {
-			inputValue && JSON.parse( inputValue )
-		} catch(e) {
-			error = 'error'
-		}
-
-		return error
 	},
 
 	validInputs() {
@@ -665,23 +633,6 @@ const Define = React.createClass({
 			}
 		}
 
-		// request params
-		const result = this.validRequestParamsInput( inputValues.request.params )
-
-		if (result) {
-			hasError = true
-			errors['request.params'] = 'error'
-		}
-
-		// response body
-		inputValues.responses.forEach((item, index) => {
-			let result = this.validResponseBodyInput( item.schema )
-			if (result) {
-				hasError = true
-				errors[`responses.schema${index}`] = 'error'
-			}
-		})
-
 		this.setState({errors})
 
 		return !hasError
@@ -694,24 +645,7 @@ const Define = React.createClass({
 
 		console.log('valid...', this.state.inputValues)
 
-		let inputValues = {...this.state.inputValues}
-
-		// 把request, response body的值转成JSON对象
-		let params = inputValues.request.params
-		if (params) {
-			params = JSON.parse( params )
-			inputValues = {...inputValues, request: {...inputValues.request, params}}
-		}
-
-		let responses = inputValues.responses.map((response, index) => {
-			let schema = JSON.parse( response.schema )
-			return {...response, schema}
-		})
-		inputValues = {...inputValues, responses}
-
-		console.log('inputValues: ', inputValues)
-
-		this.props.actions.saveDatas( inputValues )
+		this.props.actions.saveDatas( this.state.inputValues )
 			.then(() => {
 				console.log( this.props.saved )
 				if ( this.props.saved === true ) {
@@ -727,7 +661,7 @@ const Define = React.createClass({
 
 const stateToProps = (state) => {
   return {
-    ...state.binDefine,
+    ...state.mockCreate,
     tipOptions: state.tip.tipOptions
   }
 }
@@ -736,4 +670,4 @@ const dispatchToProps = (dispatch) => {
 	return { actions: bindActionCreators(actionCreators, dispatch) }
 }
 
-export default connect(stateToProps, dispatchToProps)(Define);
+export default connect(stateToProps, dispatchToProps)(Create);
