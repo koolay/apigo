@@ -12,6 +12,28 @@ module.exports = {
 
     create: function(req, res) {
 
+        //base
+        var projectId = req.param('project_id') ? req.param('project_id') : PROJECT_ID;
+
+        //接口id.[a-zA-Z\.\-_]+
+        var name = req.param('name');
+        //接口名称
+        var summary = req.param('summary');
+        //接口描述
+        var description = req.param('description');
+        var path = req.param('path');
+        var contentTypeInput = req.param('content-type_input'); //multipart/form-data
+        var contentTypeOutput = req.param('content-type_output');
+
+        //input
+        var paramsInput = req.param('params');
+        var headersInput = req.param('headers_input');
+
+        //output
+        //[{http_code: 200, schema: {}, headers: {} }]
+        var responses = req.param('responses');
+
+
         var response200 = {
             httpCode: 200,
             description: '正常返回',
