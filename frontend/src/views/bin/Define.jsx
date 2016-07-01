@@ -47,6 +47,7 @@ const Define = React.createClass({
 				request: {
 					method: DEFALUT_METHOD,
 					contentType: DEFALUT_CONTENT_TYPE,
+					querys: null,
 					params: null,
 					headers: [{
 						key: null,
@@ -95,7 +96,19 @@ const Define = React.createClass({
 						// 这里监听editor的change事件，实时更新value到textarea，以便更新textarea的校验状态
 						.on('change', (editor) => {
 							editor.save()
-							this.requestParamsInputOnChange()
+							this.requestParamsInputOnChange('params', paramsRef)
+						})
+			}
+
+			const querysRef = 'request.querys'
+
+			if (!this.codeEditors[querysRef]) {
+				this.codeEditors[querysRef] = true
+				CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs[querysRef]), options)
+						// 这里监听editor的change事件，实时更新value到textarea，以便更新textarea的校验状态
+						.on('change', (editor) => {
+							editor.save()
+							this.requestParamsInputOnChange('querys', querysRef)
 						})
 			}
 			
@@ -224,9 +237,19 @@ const Define = React.createClass({
 		      				})}
 		      			</FormGroup>
 
+		      			<FormGroup validationState={errors['request.querys']}>
+		      				<ControlLabel>
+		      					Query Params
+		      					<OverlayTrigger placement="right" overlay={tipParams}>
+				              <Glyphicon glyph="info-sign"/>
+				            </OverlayTrigger>
+		      				</ControlLabel>
+		      				<FormControl ref="request.querys" componentClass="textarea" rows={4} value={inputValues.request.querys} />
+		      			</FormGroup>
+
 		      			<FormGroup validationState={errors['request.params']}>
 		      				<ControlLabel>
-		      					Request Params
+		      					Request Body
 		      					<OverlayTrigger placement="right" overlay={tipParams}>
 				              <Glyphicon glyph="info-sign"/>
 				            </OverlayTrigger>
@@ -404,22 +427,21 @@ const Define = React.createClass({
 		})
 	},
 
-	requestParamsInputOnChange() {
-		const name = 'request.params'
+	requestParamsInputOnChange(name, keyRef) {
 		const { inputValues } = this.state
-		const inputValue = this.refs[name].getValue()
+		const inputValue = this.refs[keyRef].getValue()
 
 		// 这里只更新当前输入框的值和状态
 		this.setState({
 			errors: {
 				...this.state.errors,
-				[name]: this.validRequestParamsInput(inputValue)
+				[keyRef]: this.validRequestParamsInput(inputValue)
 			},
 			inputValues: {
 				...inputValues,
 				request: {
 					...inputValues.request,
-					params: inputValue
+					[name]: inputValue
 				}
 			}
 		})
@@ -665,12 +687,20 @@ const Define = React.createClass({
 			}
 		}
 
-		// request params
-		const result = this.validRequestParamsInput( inputValues.request.params )
+		// request body
+		let result = this.validRequestParamsInput( inputValues.request.params )
 
 		if (result) {
 			hasError = true
 			errors['request.params'] = 'error'
+		}
+
+		// query params
+		result = this.validRequestParamsInput( inputValues.request.querys )
+
+		if (result) {
+			hasError = true
+			errors['request.querys'] = 'error'
 		}
 
 		// response body
@@ -701,6 +731,12 @@ const Define = React.createClass({
 		if (params) {
 			params = JSON.parse( params )
 			inputValues = {...inputValues, request: {...inputValues.request, params}}
+		}
+
+		let querys = inputValues.request.querys
+		if (querys) {
+			querys = JSON.parse( querys )
+			inputValues = {...inputValues, request: {...inputValues.request, querys}}
 		}
 
 		let responses = inputValues.responses.map((response, index) => {
