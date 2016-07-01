@@ -14,6 +14,9 @@ module.exports = {
             type: String,
             required: true
         },
+        path:{
+            type: String
+        },
         summary: {
             type: String,
             required: true,
@@ -37,6 +40,9 @@ module.exports = {
         },
         headers:{},
         parameters: {},
+        httpCode:{
+            type: String
+        },
         responses: {},
     }
 

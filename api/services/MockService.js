@@ -37,7 +37,12 @@ module.exports = {
         path: path
       },ignorePath:true});
 
+      proxy.on('proxyRes', function (proxyRes, req, res) {
+      	mockedApi.value().restore();
+			});
+
       proxy.on('error', function(e) {
+      	mockedApi.value().restore();
         console.log(e.message);
         res.send(500, { error: e.message});
       });

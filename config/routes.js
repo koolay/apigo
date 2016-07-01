@@ -13,7 +13,7 @@ module.exports.routes = {
   //mock
   'get /api/mocks': 'MockController.list',
   'get /api/mock': 'MockController.create',
-  'get /mock/:mockid':'MockController.apimock',
+  'get /mock/:mockid':'MockController.view',
 
    //创建项目
   'post /projects': 'ProjectController.create',

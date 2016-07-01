@@ -78,9 +78,22 @@ module.exports = {
     /**
      * `mock view`
      */
-    apimock: function (req, res) {
-        var swagger = {"swagger":"2.0","info":{"version":"1.0.0","title":"Swagger Petstore"},"host":"mock.example.com","basePath":"/","paths":{"/user/login":{"get":{"tags":["user"],"summary":"Logs user into the system","description":"","operationId":"loginUser","produces":["application/json"],"parameters":[{"name":"username","in":"query","description":"The user name for login","required":true,"type":"string"},{"name":"password","in":"query","description":"The password for login in clear text","required":true,"type":"string"}],"responses":{"200":{"description":"successful operation","examples":{"application/json":{"result":true,"msg":"登录成功","data":{"username":"yulingchen"}}}}}}}}}
-        MockService.responseMockData(swagger,req, res);
+    view: function (req, res) {
+        var mockid = req.param('mockid');
+        console.log(mockid)
+        Mock.findOne({
+            _id: MongodbService.newObjectId(mockid)
+        }).exec(function(err, data) {
+            if (err||!data) {
+                res.send(500, { error: err});
+            } else {
+                data.path='/response';
+                //var swagger = {"swagger":"2.0","info":{"version":"1.0.0","title":"Swagger Petstore"},"host":"mock.example.com","basePath":"/","paths":{"/user/login":{"get":{"tags":["user"],"summary":"Logs user into the system","description":"","operationId":"loginUser","produces":["application/json"],"parameters":[{"name":"username","in":"query","description":"The user name for login","required":true,"type":"string"},{"name":"password","in":"query","description":"The password for login in clear text","required":true,"type":"string"}],"responses":{"200":{"description":"successful operation","examples":{"application/json":{"result":true,"msg":"登录成功","data":{"username":"yulingchen"}}}}}}}}}
+                var swagger = SwaggerService.convertMockToSwaggerObj(data);
+                console.log(JSON.stringify(swagger))
+                MockService.responseMockData(swagger,req, res);
+            }
+        });
     }
 
 };
