@@ -31,7 +31,7 @@ module.exports = {
 
         //input
         var paramsInput = post.request.params;
-        var queryInput = post.request.query;
+        var queryInput = post.request.querys;
 
         //获取输入参数
         var paramsInputToSave = [];

@@ -80,7 +80,7 @@ module.exports = {
             consumes: post.request.contentType,
             produces: 'application/json',
             body: post.request.params,
-            query: post.request.query
+            query: post.request.querys
         };
 
         if (post.responses) {
