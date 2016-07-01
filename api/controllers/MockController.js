@@ -58,13 +58,19 @@ module.exports = {
     },
 
     list: function(req, res) {
-        Mock.find({}).select({
-            _id: 0
-        }).sort('-_id').exec(function(err, data) {
+        Mock.find({
+            pathId: req.param('pathid')
+        }).select({}).sort('-_id').exec(function(err, data) {
             if (err) {
-                return res.negotiate(err);
+                return res.negotiate({
+                    result:false,
+                    msg:err
+                });
             } else {
-                return res.json(data);
+                return res.json({
+                    result: true,
+                    data: data
+                });
             }
         });
     },

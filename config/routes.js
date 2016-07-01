@@ -10,10 +10,9 @@ module.exports.routes = {
   'get /apis': 'ApiController.list',
   'get /apis/:id': 'ApiController.detail',
   'post /apis': 'ApiController.create',
-
-  //Mock
-  'get /mocks': 'MockController.list',
-  'get /mock': 'MockController.create',
+  
+  'get /api/mocks': 'MockController.list',
+  'get /api/mock': 'MockController.create',
 
    //创建项目
   'post /projects': 'ProjectController.create',

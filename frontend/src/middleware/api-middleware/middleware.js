@@ -45,7 +45,7 @@ function apiMiddleware({ getState }) {
 
     // Parse the validated RSAA action
     const callAPI = action[CALL_API];
-    const { endpoint, method, headers, body, credentials, bailout, types } = callAPI;
+    const { endpoint, method, headers, body, credentials, bailout, types,complete } = callAPI;
     const [requestType, successType, failureType] = normalizeTypeDescriptors(types);
 
     // Should we bail out?
@@ -91,6 +91,7 @@ function apiMiddleware({ getState }) {
       
       //这里统一处理业务异常，仅当json.result === true时，调用其successType，否则则调用failureType，并且把payload设为ApiError
       return res.json().then(async json => {
+        complete&&complete(json);
         if(json.result === true){
           return next(await actionWith(
             successType,
@@ -100,7 +101,7 @@ function apiMiddleware({ getState }) {
           return next(await actionWith(
             {
               ...failureType,
-              payload: new ApiError(json.code, json.msg, json),
+              // payload: new ApiError(json.code, json.msg, json),
               error: true
             },
             [action, getState(), json]
@@ -128,12 +129,18 @@ function apiMiddleware({ getState }) {
         ));
         // location.href = `${basePath}/norights`
       }else{
+        let json = {
+          result:false,
+          code:res.status,
+          msg:res.status==403 ? '没有权限' : (res.status==401 ? '请登录后操作' : (res.statusText || '请求异常')) 
+        }
+        complete&&complete(json);
         return next(await actionWith(
           {
             ...failureType,
             error: true
           },
-          [action, getState(), res]
+          [action, getState(), json]
         ));
       }
 

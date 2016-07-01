@@ -11,7 +11,7 @@ module.exports = {
      * @param project
      * @param paths
      */
-    convertToSwaggerObj: function(project, paths) {
+    convertPathToSwaggerObj: function(project, paths) {
 
         var swagger = {
             swagger: '2.0',
@@ -53,7 +53,49 @@ module.exports = {
 
     },
 
+    /**
+     * @param mock
+     */
+    convertMockToSwaggerObj: function(mock) {
 
+        var swagger = {
+            swagger: '2.0',
+            info: project.info,
+            host: project.host,
+            basePath: project.basePath,
+            tags: [],
+            schemes: project.schemes,
+            securityDefinitions: {},
+            //definitions: {},
+            //externalDocs: {},
+            paths: {}
+        };
+
+        var swaggerPaths = {};
+        for (var i = 0; i < paths.length; i++) {
+            var path = paths[i];
+            var pathObj = {};
+            if (path.tag) {
+                pathObj['tags'] = [path.tag];
+            }
+            pathObj['summary'] = path.summary;
+            pathObj['description'] = path.description;
+            pathObj['operationId'] = path.operationId;
+            pathObj['consumes'] = path.consumes;
+            pathObj['produces'] = path.produces;
+            pathObj['deprecated'] = path.deprecated;
+            //pathObj['definitions'] = {};
+            pathObj['parameters'] = convertParameters(path.parameters);
+            pathObj['responses'] = convertResponses(path.responses);
+
+            swaggerPaths[path.path] = {};
+            swaggerPaths[path.path][path.method.toLowerCase()] = pathObj;
+
+        }
+
+        swagger['paths'] = swaggerPaths;
+        return swagger;
+    }
 };
 
 function convertResponses(dbPathResponses) {
