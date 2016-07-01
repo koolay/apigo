@@ -57,7 +57,7 @@ module.exports = {
         name: {
             type: String,
             required: true,
-            match: /^[a-zA-Z]+[a-zA-Z_\.\-]*/
+            match: /^[a-zA-Z]+[a-zA-Z_\-]*/
         },
         method: {
             type: String,

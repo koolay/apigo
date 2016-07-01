@@ -12,51 +12,50 @@ module.exports = {
 
     create: function(req, res) {
 
+        var post = req.body;
+
         //base
-        var projectId = req.param('project_id') ? req.param('project_id') : PROJECT_ID;
-        var tag = req.param('tag') ? req.param('tag') : '商城支付';
+        var projectId = post.projectId || PROJECT_ID;
+        var tag = post.tag || '商城支付';
 
         //接口id.[a-zA-Z\.\-_]+
-        var name = 'paas.market.pay.checkout'; // req.param('name');
+        var name = post.name;
         //eg: GET\POST\PUT\ etc.
-        var method = 'post'; // req.param('method').toLowerCase();
+        var method = post.request.method.toLowerCase();
         //接口名称
-        var summary = '支付'; // req.param('summary');
+        var summary = post.summary;
         //接口描述
-        var description = '调用第三方支付'; // req.param('description');
-        var apiPath = '/pay/checkout'; // req.param('path');
-        var contentTypeInput = 'multipart/form-data'; //req.param('content_type_input'); //multipart/form-data
+        var description = post.description;
+        var apiPath = post.path;
+        var contentTypeInput = post.request.contentType;
 
         //input
-        var paramsInput = {
-            product_id: {
-                type: 'string',
-                required: true,
-                description: '产品id'
-            },
-            total_fee: {
-                type: 'number',
-                required: true,
-                description: '总费用'
-            }
-        }; //req.param('params');
+        var paramsInput = post.request.params;
 
         //获取输入参数
         var paramsInputToSave = [];
-        Object.keys(paramsInput).forEach(function(key) {
-            var item = paramsInput[key];
-            paramsInputToSave.push({
-                name: key,
-                in : 'formData',
-                description: item.description,
-                required: item.required,
-                type: item.type
+        if (paramsInput) {
+            if (!_.isArray(paramsInput)) {
+                return ResponseService.toJson(res, true, '', 'params格式不正确');
+            }
+
+            Object.keys(paramsInput).forEach(function(key) {
+                var item = paramsInput[key];
+                paramsInputToSave.push({
+                    name: key,
+                    in : 'formData',
+                    description: item.description,
+                    required: item.required,
+                    type: item.type
+                });
+
             });
 
-        });
+        }
 
         //获取输入headers
-        var headersInput = [{key: 'Authorization', description: '授权token input'}]; //req.param('headersInput');
+        var headersInput = post.request.headers;
+
         for (var i = 0; i < headersInput.length; i++) {
             var item = headersInput[i];
             paramsInputToSave.push({
@@ -68,24 +67,7 @@ module.exports = {
 
         //output
         //[{httpCode: 200, description:'', contentType:'application/json', schema: {}, headers: [] }]
-        var responses = [{
-                httpCode: 200,
-                description: '',
-                contentType: 'application/json',
-                schena: {},
-                headers: [{
-                        key: 'Authorization',
-                        description: '授权token'
-                    }, {
-                        key: 'timeout',
-                        description: '超时时间'
-                    }
-
-                ],
-
-            }
-
-        ]; //req.param('responses');
+        var responses = post.responses;
 
         /******** convert db ************/
         var responseToSave = [];
