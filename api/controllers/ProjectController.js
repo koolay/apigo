@@ -32,7 +32,7 @@ module.exports = {
                 projectId: projectId
             }).exec());
 
-            return SwaggerService.convertToSwaggerObj(project, paths);
+            return SwaggerService.convertPathToSwaggerObj(project, paths);
 
         });
 
