@@ -12,22 +12,22 @@ module.exports = {
 
     create: function(req, res) {
 
-        var post                 = req.body;
+        var post = req.body;
 
         //base
-        var projectId            = post.projectId || PROJECT_ID;
-        var tag                  = post.tag || '商城支付';
+        var projectId = post.projectId || PROJECT_ID;
+        var tag = post.tag || '商城支付';
 
         //接口id.[a-zA-Z\.\-_]+
-        var name                 = post.name;
+        var name = post.name;
         //eg: GET\POST\PUT\ etc.
-        var method               = post.request.method.toLowerCase();
+        var method = post.request.method.toLowerCase();
         //接口名称
-        var summary              = post.summary;
+        var summary = post.summary;
         //接口描述
-        var description          = post.description;
-        var apiPath              = post.path;
-        var contentTypeInput     = post.request.contentType;
+        var description = post.description;
+        var apiPath = post.path;
+        var contentTypeInput = post.request.contentType;
 
         //input
         var paramsInput = post.request.params;
@@ -42,11 +42,11 @@ module.exports = {
             Object.keys(paramsInput).forEach(function(key) {
                 var item = paramsInput[key];
                 paramsInputToSave.push({
-                    name        : key,
-                    in          : 'formData',
-                    description : item.description,
-                    required    : item.required,
-                    type        : item.type
+                    name: key,
+                    in : 'formData',
+                    description: item.description,
+                    required: item.required,
+                    type: item.type
                 });
 
             });
@@ -103,19 +103,19 @@ module.exports = {
 
         //创建接口
         var path = new Path({
-            projectId   : PROJECT_ID,
-            name        : name,
-            tag         : tag,
-            method      : method,
-            summary     : summary,
-            path        : apiPath,
-            description : description,
-            operationId : '',
-            consumes    : [contentTypeInput],
-            produces    : producesToSave,
-            deprecated  : false,
-            parameters  : paramsInputToSave,
-            responses   : responseToSave
+            projectId: PROJECT_ID,
+            name: name,
+            tag: tag,
+            method: method,
+            summary: summary,
+            path: apiPath,
+            description: description,
+            operationId: '',
+            consumes: [contentTypeInput],
+            produces: producesToSave,
+            deprecated: false,
+            parameters: paramsInputToSave,
+            responses: responseToSave
 
         });
 
@@ -246,6 +246,28 @@ module.exports = {
         })
 
     },
+
+    swagger: function(req, res) {
+        var id = req.param('id');
+        Path.findOne({
+            _id: id
+        }).exec(function(err, path) {
+            if (err) {
+                return res.negotiate(err);
+            } else {
+                Project.findOne({
+                    _id: path.projectId
+                }).exec(function(err, project) {
+                    var data = SwaggerService.convertPathToSwaggerObj(project, [path]);
+                    return ResponseService.toJson(res, true, data);
+
+                });
+            }
+
+        });
+
+    },
+
 
     list: function(req, res) {
         var name = req.param('name');
