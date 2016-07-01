@@ -6,34 +6,65 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var methodEnum = ['get', 'post', 'put', 'fetch'];
+var paramInEnum = ['body', 'path', 'query', 'header', 'formData'];
+var typeEnum = ['string', 'integer', 'boolean', 'array', 'file', 'number', 'object'];
+
+var responseSubSchema = new Schema({
+
+    httpCode: {
+        type: Number,
+        min: 200,
+        required: true,
+        default: 200
+    },
+    //实际是schema,
+    response: {},
+    headers:[{
+        _id: false,
+        name: String,
+        type: {
+            type: String,
+            enum: typeEnum
+        },
+        description: String,
+        format: String
+    }]
+}, {
+    _id: false
+});
 
 module.exports = {
-
     schema: {
-        apiId: {
-            type: Schema.Types.ObjectId,
-            required: true,
+        pathId:{
+            type: String,
+            required: true
         },
         summary: {
             type: String,
+            required: true,
         },
-        headers: String,
-        parameters: String,
-        response: {
-            httpCode: {
-                type: Number,
-                required: true,
-                default: 200,
-                min: 200
-            },
-            contentType: {
-                type: String,
-                required: true,
-                match: /^application\/\w+/,
-                default: 'application/json'
-            },
-            data: String
-        }
-    },
+        description: {
+            type: String,
+            required: true
+        },
+        method: {
+            type: String,
+            enum: methodEnum,
+            required: true
+        },
+        consumes: {
+            type: [String],
+            default: ['multipart/json']
+        },
+        produces: {
+            type: [String],
+            default: ['application/json']
+        },
+        headers:{},
+        parameters: {},
+        responses: [responseSubSchema],
+    }
 
 };
+
