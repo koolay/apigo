@@ -85,9 +85,13 @@ module.exports = {
             method: post.request.method.toLowerCase(),
             consumes: post.request.contentType,
             produces: 'application/json',
-            body: post.request.params,
-            query: post.request.querys
         };
+        if (!ValidateService.isEmpty(post.request.params)) {
+            obj['body'] = post.request.params;
+        }
+        if (!ValidateService.isEmpty(post.request.querys)) {
+            obj['query'] = post.request.querys;
+        }
 
         if (post.responses) {
             var rep = post.responses[0];

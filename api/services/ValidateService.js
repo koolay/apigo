@@ -15,6 +15,9 @@ var ajv = Ajv({
 
 module.exports = {
     isEmpty: function(obj) {
+        if (!obj) {
+            return false;
+        }
         return !Object.keys(obj).length;
     },
     //验证是json schema格式对象

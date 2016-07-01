@@ -100,9 +100,14 @@ module.exports = {
             if (rep.description) {
                 dbResponse['description'] = rep.description;
             }
-            if (rep.schema) {
-                dbResponse['dataSchema'] = rep.schema;
+
+            if (rep.schema && _.isObject(rep.schema)) {
+                dbResponse['dataSchema'] = {
+                    type: 'object',
+                    properties: rep.schema
+                };
             }
+
             if (rep.headers) {
                 dbResponse['headers'] = [];
                 for (var i = 0; i < rep.headers.length; i++) {
@@ -251,7 +256,6 @@ module.exports = {
                 query['name'] = name;
             }
         }
-        sails.log.info(query);
         Path.findOne(query).exec(function(err, path) {
             if (err) {
                 return res.negotiate({
