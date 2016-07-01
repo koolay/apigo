@@ -56,7 +56,7 @@ const MockList = React.createClass({
 				        <td>{mock.summary}</td>
 				        <td>{mock.description}</td>
 				        <td>
-				        	<p><a href={apiDomain+'/mock/'+mock._id} target="_blank">预览</a><a href="javascript:;">编辑</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
+				        	<p><a href="javascript:;">调用示例</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
 				        </td>
 				      </tr>
 			    	})}

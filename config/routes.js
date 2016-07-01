@@ -15,6 +15,7 @@ module.exports.routes = {
   'get /api/mock/create': 'MockController.create',
   'get /api/mock/remove': 'MockController.remove',
   '/mock/:pathname':'MockController.view',
+  'get /mock/test':'MockController.test',
 
    //创建项目
   'post /projects': 'ProjectController.create',

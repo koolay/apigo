@@ -39,7 +39,8 @@ module.exports = {
             default: ['application/json']
         },
         headers:{},
-        parameters: {},
+        query:{},
+        body: {},
         httpCode:{
             type: String
         },
