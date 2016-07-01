@@ -41,7 +41,7 @@ module.exports = {
         headers:{},
         parameters: {},
         httpCode:{
-            type: String
+            type: Number
         },
         responses: {},
     }

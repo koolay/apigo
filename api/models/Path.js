@@ -20,7 +20,7 @@ var responseSubSchema = new Schema({
         default: 200
     },
     description: String,
-    //实际是schema,
+    //实际对应swagger response schema,
     dataSchema: {
         _id: false,
         type: {

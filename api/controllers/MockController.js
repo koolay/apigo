@@ -8,8 +8,8 @@
 module.exports = {
 
     create: function(req, res) {
-        var paramsInput = req.param('params_input');
-        var headersInput = req.param('headers_input');
+
+        var post = req.body;
 
         //创建接口
         var mock = new Mock({
@@ -93,7 +93,7 @@ module.exports = {
         var request = {
             method: req.method.toLowerCase(),
             query: req.query,
-            
+
         }
 
         //比较
