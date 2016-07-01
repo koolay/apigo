@@ -1,0 +1,61 @@
+{
+    "roject_id": {
+        "type": "string",
+        "format": "bsonId",
+        "required": true
+    },
+    "name": {
+        "type": "string",
+        "required": true,
+        "regex": "/[a-zA-Z]+[0-9a-zA-Z\.\-_]*/"
+    },
+    "method": {
+        "type": "string",
+        "required": true
+    },
+    "summary": {
+        "type": "string",
+        "required": true
+    },
+    "description": {
+        "type": "string"
+    },
+    "path": {
+        "type": "string",
+        "required": true,
+        "regex": "/^\/\w*/"
+    },
+    "content_type_input": {
+        "type": "string",
+        "required": true
+    },
+    "headers_input": {
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "responses": {
+        "type": "array",
+        "items": {
+            "http_code": {
+                "type": "integer",
+                "required": true
+            },
+
+            "content_type": {
+                "type": "string",
+                "required": true
+            },
+            "headers": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+
+        }
+
+    }
+
+}
