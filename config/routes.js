@@ -9,6 +9,7 @@ module.exports.routes = {
   'get /api/apis': 'ApiController.list',
   'get /api/apis/:id': 'ApiController.detail',
   'post /api/apis': 'ApiController.create',
+  'get /api/swagger/:id': 'ApiController.swagger',
 
   //mock
   'get /api/mocks': 'MockController.list',
