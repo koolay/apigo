@@ -21,6 +21,10 @@ module.exports.routes = {
   //docs
   'get /docs/:project_id': 'DocsController.view',
 
+  //apiTest
+  'get /apitest/:pathid':'ApiTestController.apitest',
+  'get /apitestjson/:id':'ApiTestController.apiTestJson',
+
   //创建项目
   'post /projects': 'ProjectController.create',
   'get /projects/:id': 'ProjectController.swagger'
