@@ -13,12 +13,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/mock/list';
-import {getQuery} from '../../helpers/getQuery';
-import { apiDomain} from '../../config';
+import getBasePath from '../../helpers/getBasePath';
 
 import './mock.less';
 
 const MockList = React.createClass({
+	contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
 	getInitialState() {
     return { showModal: false }
   },
@@ -65,12 +68,12 @@ const MockList = React.createClass({
 			    <Navbar.Header>
 			      <Navbar.Brand>
 			      	{pathname} - 模拟用例
-			      	<p style={{fontSize:'12px',color:'#999'}}>模拟API: <span style={{color:'#2aa198'}}>{apiDomain}/mock/{params['binId']}</span></p>
+			      	<p style={{fontSize:'12px',color:'#999'}}>模拟API: <span style={{color:'#2aa198'}}>{getBasePath()}/mock/{params['binId']}</span></p>
 			      </Navbar.Brand>
 			    </Navbar.Header>
 			    <Navbar.Collapse>
 			      <Navbar.Text pullRight>
-			        <Button bsStyle="primary">创建Mock接口</Button>
+			        <Button bsStyle="primary" onClick={this.handleCreateMock}>创建Mock接口</Button>
 			      </Navbar.Text>
 			    </Navbar.Collapse>
 			  </Navbar>
@@ -113,6 +116,11 @@ const MockList = React.createClass({
 			  </Modal>
 			</Grid>
 		)
+	},
+
+	handleCreateMock() {
+		const binId = this.props.params['binId']
+		this.context.router.push(`${getBasePath()}/mock/create/${binId}`)
 	},
 
 	handleShowModal() {
