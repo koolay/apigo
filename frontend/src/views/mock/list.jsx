@@ -5,6 +5,9 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
+import Modal from 'react-bootstrap/lib/Modal';
+
+import CodeExample from '../../components/CodeExample';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,6 +19,10 @@ import { apiDomain} from '../../config';
 import './mock.less';
 
 const MockList = React.createClass({
+	getInitialState() {
+    return { showModal: false }
+  },
+
 	componentDidMount() {
 		const { params } = this.props
 		const binId = params['binId']
@@ -24,6 +31,33 @@ const MockList = React.createClass({
 	},
 	render() {
 		let _this=this, {pathname, params, mocks} = this.props;
+
+		const codeMode = {name: 'javascript', json: true}
+		const codeText = 
+`"id": {
+  "type": "string",
+  "description": "ID值",
+  "required": true
+},
+"name": {
+  "type": "string",
+  "defalut": "Project",
+  "description": "名称"
+},
+"users": {
+  "type": "array",
+  "items": { // 这里定义一个object数组
+    "type": "object",
+    "properties": { // object类型的子属性定义
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      }
+    }
+  }
+}`
 
 		return (
 			<Grid className="mocklist">
@@ -57,14 +91,36 @@ const MockList = React.createClass({
 				        <td>{mock.summary}</td>
 				        <td>{mock.description}</td>
 				        <td>
-				        	<p><a href="javascript:;">调用示例</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
+				        	<p><a href="javascript:;" onClick={_this.handleShowModal}>调用示例</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
 				        </td>
 				      </tr>
 			    	})}
 			    </tbody>
 			  </Table>
+
+			  <Modal show={this.state.showModal} onHide={this.handleHideModal}>
+			  	<Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          	<div className="list-group">
+          		<div className="list-item">
+          			<label>Query</label>
+          			<CodeExample codeText={codeText} mode={codeMode} />
+          		</div>
+          	</div>
+          </Modal.Body>
+			  </Modal>
 			</Grid>
 		)
+	},
+
+	handleShowModal() {
+		this.setState({showModal: true})
+	},
+
+	handleHideModal() {
+		this.setState({showModal: false})
 	},
 
 	removeMock(mock,e){
