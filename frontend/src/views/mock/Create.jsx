@@ -652,7 +652,7 @@ const Create = React.createClass({
 	},
 
 	validResponseBodyInput(inputValue) {
-		let error = !!inputValue ? null : 'error'
+		let error = null
 
 		try {
 			inputValue && JSON.parse( inputValue )
@@ -716,7 +716,7 @@ const Create = React.createClass({
 			return
 		}
 
-		console.log('valid...', this.state.inputValues)
+		console.log('valid...')
 
 		let inputValues = {...this.state.inputValues}
 
@@ -733,15 +733,19 @@ const Create = React.createClass({
 			inputValues = {...inputValues, request: {...inputValues.request, querys}}
 		}
 
+		// 过滤掉headers里多余的空项
+		let requestHeaders = inputValues.request.headers.filter(header => !!header.key)
+		inputValues = {...inputValues, request: {...inputValues.request, headers: requestHeaders}}
+
 		let responses = inputValues.responses.map((response, index) => {
 			let data = JSON.parse( response.data )
-			return {...response, data}
+			// 过滤掉headers里多余的空项
+			let headers = response.headers.filter(header => !!header.key)
+			return {...response, data, headers}
 		})
-		inputValues = {...inputValues, responses}
-
 		// 把params.binId合到inputValues中去，以便传到后台
 		const binId = this.props.params['binId']
-		inputValues = {...inputValues, pathId: binId}
+		inputValues = {...inputValues, responses, pathId: binId}
 
 		console.log('inputValues: ', inputValues)
 
