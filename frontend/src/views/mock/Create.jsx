@@ -32,7 +32,7 @@ const DEFALUT_CONTENT_TYPE = 'application/json'
 const Create = React.createClass({
 	// CodeMirror 在初始后，会创建一个实例对象，如果再次对同一个textarea进行初始化，会出现多个editor
 	// 这里把editor缓存起来
-	codeEditors: {},
+	// codeEditors: {},
 	getInitialState() {
 		return {
 			errors: {},
@@ -66,7 +66,8 @@ const Create = React.createClass({
 					}],
 					data: null
 				}]
-			}
+			},
+			codeEditors: {}
 		}
 	},
 
@@ -87,10 +88,11 @@ const Create = React.createClass({
 		} 
 
 		if (CodeMirror) {
+			let { codeEditors } = this.state
 			const paramsRef = 'request.params'
 
-			if (!this.codeEditors[paramsRef]) {
-				this.codeEditors[paramsRef] = true
+			if (!codeEditors[paramsRef]) {
+				codeEditors[paramsRef] = true
 				CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs[paramsRef]), options)
 						// 这里监听editor的change事件，实时更新value到textarea，以便更新textarea的校验状态
 						.on('change', (editor) => {
@@ -101,8 +103,8 @@ const Create = React.createClass({
 
 			const querysRef = 'request.querys'
 
-			if (!this.codeEditors[querysRef]) {
-				this.codeEditors[querysRef] = true
+			if (!codeEditors[querysRef]) {
+				codeEditors[querysRef] = true
 				CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs[querysRef]), options)
 						// 这里监听editor的change事件，实时更新value到textarea，以便更新textarea的校验状态
 						.on('change', (editor) => {
@@ -115,8 +117,8 @@ const Create = React.createClass({
 			// response body
 			this.state.inputValues.responses.forEach((item, index) => {
 				const bodyRef = `responses.data${index}`
-				if (!this.codeEditors[bodyRef]){
-					this.codeEditors[bodyRef] = true
+				if (!codeEditors[bodyRef]){
+					codeEditors[bodyRef] = true
 					CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs[bodyRef]), options)
 							.on('change', (editor) => {
 								editor.save()
@@ -246,8 +248,8 @@ const Create = React.createClass({
 		      				<FormControl ref="request.params" componentClass="textarea" rows={4} value={inputValues.request.params} />
 		      			</FormGroup>
 
-		      			<FormGroup>
-		      				<ControlLabel>Description</ControlLabel>
+		      			<FormGroup validationState={errors.description}>
+		      				<ControlLabel>Description*</ControlLabel>
 		      				<FormControl ref="description" componentClass="textarea" value={inputValues.description} onChange={this.inputOnChange.bind(this, 'description')} />
 		      			</FormGroup>
 			      	</Col>
@@ -460,7 +462,7 @@ const Create = React.createClass({
 					...inputValues.request,
 					headers: inputValues.request.headers.map((item, i) => {
 						if (i === index) {
-							return type === 'key' ? {key: inputValue, description: item.value} : {key: item.key, description: inputValue}
+							return type === 'key' ? {key: inputValue, description: item.description} : {key: item.key, description: inputValue}
 						}
 
 						return item
@@ -659,7 +661,7 @@ const Create = React.createClass({
 	},
 
 	validInputs() {
-		const { inputValues } = this.state, refs = this.refs, excludes = 'request|responses|description'
+		const { inputValues } = this.state, refs = this.refs, excludes = 'request|responses'
 		let errors = {}, hasError = false
 
 		for (var t in inputValues) {
