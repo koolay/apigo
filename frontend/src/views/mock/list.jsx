@@ -68,11 +68,7 @@ const MockList = React.createClass({
 			    <Navbar.Header>
 			      <Navbar.Brand>
 			      	{pathname} - 模拟用例
-<<<<<<< HEAD
 			      	<p style={{fontSize:'12px',color:'#999'}}>模拟API: <span style={{color:'#2aa198'}}>{apiDomain}/mock/{pathid}</span></p>
-=======
-			      	<p style={{fontSize:'12px',color:'#999'}}>模拟API: <span style={{color:'#2aa198'}}>{getBasePath()}/mock/{params['binId']}</span></p>
->>>>>>> 510a78b140da999bf03cd76ab6cd90dce59a9dbb
 			      </Navbar.Brand>
 			    </Navbar.Header>
 			    <Navbar.Collapse>

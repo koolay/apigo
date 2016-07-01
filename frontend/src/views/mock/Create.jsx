@@ -21,6 +21,8 @@ import CodeExample from '../../components/CodeExample';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import getBasePath from '../../helpers/getBasePath';
+
 import { actions as actionCreators } from '../../redux/modules/mock/create';
 
 import '../bin/define.less';
@@ -30,9 +32,10 @@ const DEFALUT_METHOD = 'GET'
 const DEFALUT_CONTENT_TYPE = 'application/json'
 
 const Create = React.createClass({
-	// CodeMirror 在初始后，会创建一个实例对象，如果再次对同一个textarea进行初始化，会出现多个editor
-	// 这里把editor缓存起来
-	// codeEditors: {},
+	contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
 	getInitialState() {
 		return {
 			errors: {},
@@ -747,6 +750,7 @@ const Create = React.createClass({
 				console.log( this.props.saved )
 				if ( this.props.saved === true ) {
 					window.alert('保存成功')
+					this.context.router.push(`${getBasePath()}/mock/list/${binId}`)
 				} else {
 					window.alert('保存失败')
 				}
