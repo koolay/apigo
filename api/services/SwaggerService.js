@@ -16,6 +16,7 @@ function convertResponses(dbPathResponses) {
         var dbResponse = dbPathResponses[i];
         var statusObj = {};
         statusObj['description'] = dbResponse.description;
+        console.log('dbResponse.description:'+statusObj['description'])
         //statusObj['default'] = dbResponse.default;
         if (dbResponse.dataSchema.properties) {
             statusObj['schema'] = dbResponse.dataSchema;

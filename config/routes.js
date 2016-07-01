@@ -18,7 +18,10 @@ module.exports.routes = {
   '/mock/:pathname':'MockController.view',
   'get /mock/test':'MockController.test',
 
-   //创建项目
+  //docs
+  'get /docs/:project_id': 'DocsController.view',
+
+  //创建项目
   'post /projects': 'ProjectController.create',
   'get /projects/:id': 'ProjectController.swagger'
 

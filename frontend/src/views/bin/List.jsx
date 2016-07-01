@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/bin/list';
 import getBasePath from '../../helpers/getBasePath';
+import getApiPath from '../../helpers/getApiPath';
 
 import './list.less';
 
@@ -42,7 +43,8 @@ const BinList = React.createClass({
 			<Grid data-page="bin/list">
 				<Row className="toolbar">
 					<h3>API接口列表</h3>
-					<Button bsStyle="primary" onClick={this.handleCreateBin}>创建接口</Button>
+					<a href={getApiPath('docs/57729f9d5df150cc0ab98825')} target="_blank"><Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa'}}>在线API文档</Button></a>
+					<Button bsStyle="primary" onClick={this.handleCreateBin} style={{marginRight:'20px'}}>创建接口</Button>
 				</Row>
 
 				<PanelGroup activeKey={this.state.activeKey} onSelect={this.handleSelectPanel} accordion>
