@@ -5,14 +5,15 @@ module.exports.routes = {
   'post /login': 'UsersController.login',
   'post /signup': 'UsersController.signup',
 
-  '/go': 'MockController.go',
-
+  //path
   'get /apis': 'ApiController.list',
   'get /apis/:id': 'ApiController.detail',
   'post /apis': 'ApiController.create',
   
+  //mock
   'get /api/mocks': 'MockController.list',
   'get /api/mock': 'MockController.create',
+  'get /mock/view/:mockid':'MockController.apimock',
 
    //创建项目
   'post /projects': 'ProjectController.create',

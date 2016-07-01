@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/mock/list';
 import {getQuery} from '../../helpers/getQuery';
+import { apiDomain} from '../../config';
 
 import './mock.less';
 
@@ -50,7 +51,7 @@ const MockList = React.createClass({
 				        <td>{mock.summary}</td>
 				        <td>{mock.description}</td>
 				        <td>
-				        	<p><a href="javascript:;">预览</a><a href="javascript:;">编辑</a><a href="javascript:;">删除</a></p>
+				        	<p><a href={apiDomain+'/mock/view/'+mock._id} target="_blank">预览</a><a href="javascript:;">编辑</a><a href="javascript:;">删除</a></p>
 				        </td>
 				      </tr>
 			    	})}
