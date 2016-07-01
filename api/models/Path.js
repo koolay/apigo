@@ -19,7 +19,11 @@ var responseSubSchema = new Schema({
         required: true,
         default: 200
     },
-    description: String,
+    description: {
+        type: String,
+        default: '无',
+        required: true
+    },
     //实际对应swagger response schema,
     dataSchema: {
         _id: false,
