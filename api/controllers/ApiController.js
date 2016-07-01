@@ -31,7 +31,7 @@ module.exports = {
         var headersInput = req.param('headers_input');
 
         //output
-        //[{http_code: 200, content-type:'application/json', schema: {}, headers: {} }]
+        //[{http_code: 200, content-type:'application/json', schema: {}, headers: [] }]
         var responses = req.param('responses');
 
 
