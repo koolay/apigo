@@ -19,6 +19,12 @@ div[data-page="bin/define"] {
 	}
 
 	.form-group {
+		&.multi {
+			> .input-group {
+				margin-bottom: 10px;
+			}
+		}
+
 		> .input-group {
 			width: 100%;
 		}
@@ -28,8 +34,21 @@ div[data-page="bin/define"] {
 			top: 2px;
 		}
 	}
+
+	.response-add-button-wrapper {
+		text-align: right;
+		// margin-bottom: 10px;
+	}
+	.response-group-wrapper {
+		border-bottom: 1px dashed #ccc;
+		margin: 20px 0;
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
 }
 
 .field-tips {
-	max-width: 350px;
+	max-width: 600px;
 }
