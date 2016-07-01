@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/mock/list';
 import getBasePath from '../../helpers/getBasePath';
+import {apiDomain} from '../../config';
 
 import './mock.less';
 
@@ -23,7 +24,7 @@ const MockList = React.createClass({
   },
 
 	getInitialState() {
-    return { showModal: false }
+    return { showModal: false,mock:{query:{a:1}} }
   },
 
 	componentDidMount() {
@@ -62,6 +63,17 @@ const MockList = React.createClass({
   }
 }`
 
+	let queryParams='', querys = this.state.mock["query"];
+	if(querys){
+		var paramsArr=[];
+		for(var param in querys){
+			if(querys.hasOwnProperty(param)){
+				paramsArr.push(param +'='+ querys[param]);
+			}
+		}
+		queryParams = '?'+paramsArr.join('&');
+	}
+	
 		return (
 			<Grid className="mocklist">
 				<Navbar className="table-toolbar">
@@ -94,7 +106,7 @@ const MockList = React.createClass({
 				        <td>{mock.summary}</td>
 				        <td>{mock.description}</td>
 				        <td>
-				        	<p><a href="javascript:;" onClick={_this.handleShowModal}>调用示例</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
+				        	<p><a href="javascript:;" onClick={_this.handleShowModal.bind(_this,mock)}>调用示例</a><a href="javascript:;" onClick={_this.removeMock.bind(_this,mock)}>删除</a></p>
 				        </td>
 				      </tr>
 			    	})}
@@ -103,13 +115,29 @@ const MockList = React.createClass({
 
 			  <Modal show={this.state.showModal} onHide={this.handleHideModal}>
 			  	<Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>调用示例</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           	<div className="list-group">
           		<div className="list-item">
-          			<label>Query</label>
-          			<CodeExample codeText={codeText} mode={codeMode} />
+          			<label>{this.state.mock["method"]&&this.state.mock["method"].toUpperCase()} <span style={{color:'#2aa198'}}>{apiDomain}/mock/{pathid}{queryParams}</span></label>
+          		</div>
+          		
+          		{this.state.mock["headers"]?
+          		<div className="list-item">
+          			<label>Headers</label>
+          			<CodeExample codeText={JSON.stringify(this.state.mock["headers"]) || ''} mode={codeMode} />
+          		</div>:null}
+
+          		{this.state.mock["body"]?
+          		<div className="list-item">
+          			<label>Body</label>
+          			<CodeExample codeText={JSON.stringify(this.state.mock["body"]) || ''} mode={codeMode} />
+          		</div>:null}
+
+          		<div className="list-item">
+          			<label>Responses</label>
+          			<CodeExample codeText={JSON.stringify(this.state.mock["responses"]) || ''} mode={codeMode} />
           		</div>
           	</div>
           </Modal.Body>
@@ -123,8 +151,12 @@ const MockList = React.createClass({
 		this.context.router.push(`${getBasePath()}/mock/create/${binId}`)
 	},
 
-	handleShowModal() {
-		this.setState({showModal: true})
+	handleShowModal(mock) {
+		console.log(mock)
+		this.setState({
+			mock:mock,
+			showModal: true
+		})
 	},
 
 	handleHideModal() {

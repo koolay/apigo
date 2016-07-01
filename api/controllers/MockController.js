@@ -21,6 +21,12 @@ function _isAllHeadersExist(mockheaders, requestheaders) {
     return true;
 }
 
+function _customizer(objValue, othValue){
+    if(typeof objValue == 'number' && +objValue==othValue) return true;
+    if(typeof objValue == 'boolean' && objValue.toString()==othValue) return true;
+    if(objValue === null  && ""+objValue==othValue) return true;
+}
+
 function _findMock(mocklist, request) {
     var foundMock;
     for (var i = 0; i < mocklist.length; i++) {
@@ -34,16 +40,16 @@ function _findMock(mocklist, request) {
         }
 
         //对比query
-        console.log('mock.query:' + JSON.stringify(mock.query))
+        console.log('mock.query:' + JSON.stringify(JSON.parse(JSON.stringify(mock.query))))
         console.log('request.query:' + JSON.stringify(request.query))
-        if (mock.query && !_.isEqual(mock.query, request.query)) {
+        if (mock.query && !_.isEqualWith(mock.query, request.query,_customizer)) {
             continue;
         }
 
         //对比body
         console.log('mock.body:' + JSON.stringify(mock.body))
         console.log('request.body:' + JSON.stringify(request.body))
-        if (mock.body && !_.isEqual(mock.body, request.body)) {
+        if (mock.body && !_.isEqualWith(mock.body, request.body,_customizer)) {
             continue;
         }
 
