@@ -17,6 +17,8 @@ module.exports = {
 
         //接口id.[a-zA-Z\.\-_]+
         var name = req.param('name');
+        //eg: GET\POST\PUT\ etc.
+        var method = req.param('method');
         //接口名称
         var summary = req.param('summary');
         //接口描述
@@ -161,15 +163,30 @@ module.exports = {
     },
 
     list: function(req, res) {
-        Project.find({}).select({
-            _id: 0
-        }).sort('-_id').exec(function(err, data) {
+        var name = req.param('name');
+        //var summary = req.param('summary');
+        var tag = req.param('tag');
+        var query = {};
+        if (name) {
+            query['name'] = name;
+        }
+        if (tag) {
+            query['tag'] = tag;
+        }
+
+        Path.find(query).exec(function(err, data) {
             if (err) {
                 return res.negotiate(err);
             } else {
-                return res.json(data);
+                return res.json({
+                    result: true,
+                    msg: '',
+                    data: data
+                });
             }
+
         });
+
     },
 
     go: function(req, res) {
