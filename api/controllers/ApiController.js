@@ -19,12 +19,12 @@ module.exports = {
         //接口id.[a-zA-Z\.\-_]+
         var name = 'paas.market.pay.checkout'; // req.param('name');
         //eg: GET\POST\PUT\ etc.
-        var method = 'POST'; // req.param('method');
+        var method = 'post'; // req.param('method').toLowerCase();
         //接口名称
         var summary = '支付'; // req.param('summary');
         //接口描述
         var description = '调用第三方支付'; // req.param('description');
-        var path = '/pay/checkout'; // req.param('path');
+        var apiPath = '/pay/checkout'; // req.param('path');
         var contentTypeInput = 'multipart/form-data'; //req.param('content_type_input'); //multipart/form-data
 
         //input
@@ -35,7 +35,7 @@ module.exports = {
                 description: '产品id'
             },
             total_fee: {
-                type: 'Number',
+                type: 'number',
                 required: true,
                 description: '总费用'
             }
@@ -56,7 +56,7 @@ module.exports = {
         });
 
         //获取输入headers
-        var headersInput = req.param('headersInput');
+        var headersInput = [{key: 'Authorization', description: '授权token input'}]; //req.param('headersInput');
         for (var i = 0; i < headersInput.length; i++) {
             var item = headersInput[i];
             paramsInputToSave.push({
@@ -106,7 +106,7 @@ module.exports = {
                 dbResponse['headers'] = [];
                 for (var i = 0; i < rep.headers.length; i++) {
                     var item = rep.headers[i];
-                    producesToSave.push(item.contentType);
+                    producesToSave.push(rep.contentType);
                     dbResponse['headers'].push({
                         name: item.key,
                         type: 'string',
@@ -126,7 +126,7 @@ module.exports = {
             tag: tag,
             method: method,
             summary: summary,
-            path: path,
+            path: apiPath,
             description: description,
             operationId: '',
             consumes: [contentTypeInput],

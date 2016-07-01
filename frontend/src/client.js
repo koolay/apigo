@@ -8,6 +8,17 @@ import configureStore from './redux/configureStore';
 import { DEV, baseAlias } from './config'
 // import { getQuery } from './helpers/getQuery'
 // import Token from './helpers/token'
+// 
+// CodeMirror
+import CodeMirror from 'codemirror';
+// import 'jsonlint';
+// import 'codemirror/addon/lint/lint';
+// import 'codemirror/addon/lint/javascript-lint';
+// import 'codemirror/addon/lint/json-lint';
+import 'codemirror/addon/runmode/runmode';
+import 'codemirror/mode/javascript/javascript';
+
+global.CodeMirror = CodeMirror
 
 const store = configureStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);

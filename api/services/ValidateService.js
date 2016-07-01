@@ -25,43 +25,9 @@ module.exports = {
     isEmpty: function(obj) {
         return !Object.keys(obj).length;
     },
+    validSchema: function(schema) {
+        return ajv.compile(schema)
 
-    checkMockData: function(input) {
-
-        var schema = {
-            "properties": {
-                "api_id": {
-                    "type": "string"
-                },
-                "summary": {
-                    "type": "string"
-                },
-                "content_type": {
-                    "type": "string"
-                },
-                "headers": {
-                    "type": "string"
-                },
-                "parameters": {
-                    "type": "string"
-                },
-                "http_code": {
-                    "type": "number",
-                    "minimum": 200
-                },
-                "data": {
-                    "type": "string"
-                },
-            },
-            "required": ["api_id", "content_type"]
-        };
-
-        var valid = ajv.validate(schema, input);
-        if (valid) {
-            return true;
-        } else {
-            return ajv.errorsText(ajv.errors)
-        }
     }
 
 

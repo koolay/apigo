@@ -1,15 +1,11 @@
 import React, { PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-import CodeMirror from 'codemirror';
-import 'codemirror/addon/runmode/runmode';
-import 'codemirror/mode/javascript/javascript';
-
 export default class CodeExample extends React.Component {
-  static propTypes = {
-    codeText: PropTypes.string.isRequired,
-    mode: PropTypes.string.isRequired
-  };
+  // static propTypes = {
+  //   codeText: PropTypes.string.isRequired,
+  //   mode: PropTypes.string.isRequired
+  // };
 
   render() {
     return (
