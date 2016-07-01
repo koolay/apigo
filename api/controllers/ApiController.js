@@ -256,9 +256,15 @@ module.exports = {
         sails.log.info(query);
         Path.findOne(query).exec(function(err, path) {
             if (err) {
-                return res.negotiate(err);
+                return res.negotiate({
+                    result:false,
+                    msg:err
+                });
             } else {
-                return res.json(path);
+                return res.json({
+                    result: true,
+                    data: path
+                });
             }
 
         })

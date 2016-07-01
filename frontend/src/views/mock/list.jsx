@@ -17,16 +17,21 @@ import './mock.less';
 
 const MockList = React.createClass({
 	componentDidMount() {
-		this.fetchMocklist();
+		let pathid = getQuery('pathid');
+		this.fetchPath(pathid);
+		this.fetchMocklist(pathid);
 	},
 	render() {
-		let _this=this, {mocks} = this.props;
+		let _this=this, {pathname, pathid, mocks} = this.props;
 
 		return (
 			<Grid className="mocklist">
 				<Navbar className="table-toolbar">
 			    <Navbar.Header>
-			      <Navbar.Brand>Mock模拟接口列表</Navbar.Brand>
+			      <Navbar.Brand>
+			      	{pathname} - 模拟用例
+			      	<p style={{fontSize:'12px',color:'#999'}}>调用URL: <span style={{color:'#2aa198'}}>{apiDomain}/mock/{pathid}</span></p>
+			      </Navbar.Brand>
 			    </Navbar.Header>
 			    <Navbar.Collapse>
 			      <Navbar.Text pullRight>
@@ -72,9 +77,16 @@ const MockList = React.createClass({
 		});
 	},
 
-	fetchMocklist(){
-		let pathid = getQuery('pathid');
+	fetchPath(pathid){
+		let {actions} = this.props;
+		actions.fetchPath(pathid,json=>{
+			if(!json.result){
+				alert(json.result)
+			}
+		});
+	},
 
+	fetchMocklist(pathid){
 		let {actions} = this.props;
 		actions.fetchMocklist(pathid,json=>{
 			if(!json.result){
@@ -86,6 +98,8 @@ const MockList = React.createClass({
 
 const stateToProps = (state) => {
   return {
+  	pathname:state.mockList.pathname,
+    pathid:state.mockList.pathid,
     mocks: state.mockList.mocks
   }
 }

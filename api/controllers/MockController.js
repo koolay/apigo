@@ -89,20 +89,54 @@ module.exports = {
      * `mock view`
      */
     view: function (req, res) {
-        var mockid = req.param('mockid');
-        Mock.findOne({
-            _id: MongodbService.newObjectId(mockid)
-        }).exec(function(err, data) {
-            if (err||!data) {
+        //输入数据
+        var request = {
+            method: req.method.toLowerCase(),
+            query: req.query,
+            
+        }
+
+        //比较
+        var pathname = req.param('pathname');
+        Path.findOne({name: pathname}).exec(function(err, data) {
+            if(err){
                 res.send(500, { error: err});
-            } else {
-                data.path='/response';
-                //var swagger = {"swagger":"2.0","info":{"version":"1.0.0","title":"Swagger Petstore"},"host":"mock.example.com","basePath":"/","paths":{"/user/login":{"get":{"tags":["user"],"summary":"Logs user into the system","description":"","operationId":"loginUser","produces":["application/json"],"parameters":[{"name":"username","in":"query","description":"The user name for login","required":true,"type":"string"},{"name":"password","in":"query","description":"The password for login in clear text","required":true,"type":"string"}],"responses":{"200":{"description":"successful operation","examples":{"application/json":{"result":true,"msg":"登录成功","data":{"username":"yulingchen"}}}}}}}}}
-                var swagger = SwaggerService.convertMockToSwaggerObj(data);
-                console.log(JSON.stringify(swagger))
-                MockService.responseMockData(swagger,req, res);
             }
-        });
+
+            var pathid = data._id;
+            console.log('pathid:'+pathid);
+
+            Mock.find({pathId: pathid}).sort('-_id').exec(function(err, data) {
+                if(err){
+                    res.send(500, { error: err});
+                }
+
+                var mocklist = data;
+                console.log('mocklist:'+data);
+
+
+
+            });
+        })
+
+
+
+
+
+        // var mockid = req.param('mockid');
+        // Mock.findOne({
+        //     _id: MongodbService.newObjectId(mockid)
+        // }).exec(function(err, data) {
+        //     if (err||!data) {
+        //         res.send(500, { error: err});
+        //     } else {
+        //         data.path='/response';
+        //         //var swagger = {"swagger":"2.0","info":{"version":"1.0.0","title":"Swagger Petstore"},"host":"mock.example.com","basePath":"/","paths":{"/user/login":{"get":{"tags":["user"],"summary":"Logs user into the system","description":"","operationId":"loginUser","produces":["application/json"],"parameters":[{"name":"username","in":"query","description":"The user name for login","required":true,"type":"string"},{"name":"password","in":"query","description":"The password for login in clear text","required":true,"type":"string"}],"responses":{"200":{"description":"successful operation","examples":{"application/json":{"result":true,"msg":"登录成功","data":{"username":"yulingchen"}}}}}}}}}
+        //         var swagger = SwaggerService.convertMockToSwaggerObj(data);
+        //         console.log(JSON.stringify(swagger))
+        //         MockService.responseMockData(swagger,req, res);
+        //     }
+        // });
     }
 
 };
