@@ -73,18 +73,18 @@ module.exports = {
         //创建接口
 
         var obj = {
-            pathId         : post.pathId,
-            summary        : post.summary,
-            description    : post.description,
-            method         : post.request.method.toLowerCase(),
-            consumes       : post.request.contentType,
-                produces   : 'application/json',
-                parameters : post.request.params
+            pathId: post.pathId,
+            summary: post.summary,
+            description: post.description,
+            method: post.request.method.toLowerCase(),
+            consumes: post.request.contentType,
+            produces: 'application/json',
+            parameters: post.request.params
         };
 
         if (post.responses) {
-            var rep          = post.responses[0];
-            obj['httpCode']  = rep.httpCode;
+            var rep = post.responses[0];
+            obj['httpCode'] = rep.httpCode;
             obj['responses'] = rep.data;
 
             if (rep.headers) {
@@ -99,16 +99,13 @@ module.exports = {
         var mock = new Mock(obj);
         var error = mock.validateSync();
         if (error) {
-            return res.json({
-                result: false,
-                error: error
-            });
+            return ResponseService.toJson(res, false, error, '输入格式不正确');
         }
         mock.save(function(err, mock) {
             if (err) {
                 return res.negotiate(err);
             } else {
-                return res.json(mock);
+                return ResponseService.toJson(res, true, mock);
             };
         });
     },
