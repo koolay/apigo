@@ -24,7 +24,7 @@ const SAVE_BIN_DATAS_FAILURE = 'SAVE_BIN_DATAS_FAILURE'
 // Actions (Action Creator)
 // ------------------------------------
 export const saveDatas = (data) => {
-  let fetchOptions = getFetchOptions(getApiPath('apis'), 'POST', {
+  let fetchOptions = getFetchOptions(getApiPath('api/apis'), 'POST', {
       body: JSON.stringify( data )
     })
 

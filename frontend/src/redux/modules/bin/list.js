@@ -15,37 +15,27 @@ import getBasePath from '../../../helpers/getBasePath';
 const FETCH_REQUEST = Symbol('FETCH_REQUEST')
 const FETCH_FAILURE = Symbol('FETCH_FAILURE')
 
-const SAVE_BIN_DATAS_REQUEST = 'SAVE_BIN_DATAS_REQUEST'
-const SAVE_BIN_DATAS_SUCCESS = 'SAVE_BIN_DATAS_SUCCESS'
-const SAVE_BIN_DATAS_FAILURE = 'SAVE_BIN_DATAS_FAILURE'
+const FETCH_BIN_LIST_REQUEST = 'FETCH_BIN_LIST_REQUEST'
+const FETCH_BIN_LIST_SUCCESS = 'FETCH_BIN_LIST_SUCCESS'
+const FETCH_BIN_LIST_FAILURE = 'FETCH_BIN_LIST_FAILURE'
 
 
 // ------------------------------------
 // Actions (Action Creator)
 // ------------------------------------
-export const saveDatas = (data) => {
-  let fetchOptions = getFetchOptions(getApiPath('apis'), 'POST', {
-      body: JSON.stringify( data )
-    })
+export const fetchBinList = (data) => {
+  let fetchOptions = getFetchOptions(getApiPath('api/apis'))
 
   return {
     [CALL_API]: {
       ...fetchOptions,
       types: [
-        SAVE_BIN_DATAS_REQUEST,
+        FETCH_BIN_LIST_REQUEST,
         {
-          type: SAVE_BIN_DATAS_SUCCESS,
+          type: FETCH_BIN_LIST_SUCCESS,
           payload: (action, state, json) => json.data
-          // ,meta: {
-          //   transition: function(state, { payload }) {
-          //     return {
-          //       path: getBasePath() + '/examples/tag/list',
-          //       state: { refresh: true }
-          //     }
-          //   }
-          // }
         }, 
-        SAVE_BIN_DATAS_FAILURE
+        FETCH_BIN_LIST_FAILURE
       ]
     }
   }
@@ -56,7 +46,7 @@ export const saveDatas = (data) => {
  * 暴露actions到外面，方便使用react-redux connect绑定到Container Component
  */
 export const actions = {
-  saveDatas
+  fetchBinList
 }
 
 
@@ -65,18 +55,23 @@ export const actions = {
 // ------------------------------------
 
 const initialState = {
-  list: null
+  list: null,
+  pending: true
 }
 
 
 export default handleActions({
 
-  [SAVE_BIN_DATAS_SUCCESS] (state, { payload }) {
-    return {...state, saved: true}
+  [FETCH_BIN_LIST_REQUEST] (state) {
+    return {...state, pending: true}
   },
 
-  [SAVE_BIN_DATAS_FAILURE] (state, { payload }) {
-    return {...state, saved: false}
+  [FETCH_BIN_LIST_SUCCESS] (state, { payload }) {
+    return {...state, list: payload, false}
+  },
+
+  [FETCH_BIN_LIST_FAILURE] (state) {
+    return {...state, pending: false}
   }
 
 }, initialState)

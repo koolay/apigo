@@ -17,12 +17,13 @@ import './mock.less';
 
 const MockList = React.createClass({
 	componentDidMount() {
-		let pathid = getQuery('pathid');
-		this.fetchPath(pathid);
-		this.fetchMocklist(pathid);
+		const { params } = this.props
+		const binId = params['binId']
+		this.fetchPath(binId);
+		this.fetchMocklist(binId);
 	},
 	render() {
-		let _this=this, {pathname, pathid, mocks} = this.props;
+		let _this=this, {pathname, params, mocks} = this.props;
 
 		return (
 			<Grid className="mocklist">
@@ -30,7 +31,7 @@ const MockList = React.createClass({
 			    <Navbar.Header>
 			      <Navbar.Brand>
 			      	{pathname} - 模拟用例
-			      	<p style={{fontSize:'12px',color:'#999'}}>调用URL: <span style={{color:'#2aa198'}}>{apiDomain}/mock/{pathid}</span></p>
+			      	<p style={{fontSize:'12px',color:'#999'}}>调用URL: <span style={{color:'#2aa198'}}>{apiDomain}/mock/{params['binId']}</span></p>
 			      </Navbar.Brand>
 			    </Navbar.Header>
 			    <Navbar.Collapse>
@@ -99,7 +100,7 @@ const MockList = React.createClass({
 const stateToProps = (state) => {
   return {
   	pathname:state.mockList.pathname,
-    pathid:state.mockList.pathid,
+    // pathid:state.mockList.pathid,
     mocks: state.mockList.mocks
   }
 }
