@@ -136,7 +136,7 @@ const MockList = React.createClass({
           		</div>:null}
 
           		<div className="list-item">
-          			<label>Responses</label>
+          			<label>Responses {this.state.mock["httpCode"]}</label>
           			<CodeExample codeText={JSON.stringify(this.state.mock["responses"]) || ''} mode={codeMode} />
           		</div>
           	</div>
