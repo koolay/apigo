@@ -249,7 +249,7 @@ const Define = React.createClass({
 				      		return (
 				      			<div key={groupIndex} className="response-group-wrapper">
 				      				{groupIndex > 0 ? <div className="response-add-button-wrapper"><Button bsStyle="danger" onClick={this.handleRemoveResponseGroup.bind(this, groupIndex)}>Remove</Button></div> : null}
-				      				<FormGroup validationState={errors.path}>
+				      				<FormGroup validationState={errors[httpCodeRef]}>
 					      				<ControlLabel>HTTP Code*</ControlLabel>
 					      				<FormControl ref={httpCodeRef} type="text" placeholder="http code" value={item.httpCode} onChange={this.responseHttpCodeInputOnChange.bind(this, groupIndex)} />
 					      			</FormGroup>

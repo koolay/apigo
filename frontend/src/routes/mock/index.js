@@ -8,7 +8,7 @@ module.exports = {
       })
     }
   }, {
-    path: 'create(/:mockId)',
+    path: 'create/:binId(/:mockId)',
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
         cb(null, require('../../views/mock/Create').default)
