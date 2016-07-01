@@ -27,6 +27,7 @@ var responseSubSchema = new Schema({
             type: String,
             enum: typeEnum,
         },
+        //when array then items:{}, when object then  properties:{},
         properties: {}
 
     },
