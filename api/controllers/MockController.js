@@ -8,6 +8,9 @@
 module.exports = {
 
     create: function(req, res) {
+        var paramsInput = req.param('params_input');
+        var headersInput = req.param('headers_input');
+
 
     },
 
