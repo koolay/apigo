@@ -204,16 +204,13 @@ module.exports = {
 
         var error = path.validateSync();
         if (error) {
-            return res.json({
-                result: false,
-                error: error
-            });
+            return ResponseService.toJson(res, false, error, '输入格式');
         }
         path.save(function(err, api) {
             if (err) {
                 return res.negotiate(err);
             } else {
-                return res.json(api);
+                return ResponseService.toJson(res, true, api);
             };
         });
 
@@ -239,14 +236,11 @@ module.exports = {
         Path.findOne(query).exec(function(err, path) {
             if (err) {
                 return res.negotiate({
-                    result:false,
-                    msg:err
+                    result: false,
+                    msg: err
                 });
             } else {
-                return res.json({
-                    result: true,
-                    data: path
-                });
+                return ResponseService.toJson(res, true, path);
             }
 
         })
@@ -269,11 +263,7 @@ module.exports = {
             if (err) {
                 return res.negotiate(err);
             } else {
-                return res.json({
-                    result: true,
-                    msg: '',
-                    data: data
-                });
+                return ResponseService.toJson(res, true, data);
             }
 
         });
