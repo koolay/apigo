@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Button from 'react-bootstrap/lib/Button';
 import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Panel from 'react-bootstrap/lib/Panel';
@@ -45,25 +46,30 @@ const BinList = React.createClass({
 
 	render() {
 		const { list } = this.props
+		const projectId = '57729f9d5df150cc0ab98825'
 
 		return (
 			<Grid data-page="bin/list">
 				<Row className="toolbar">
 					<h3>API接口列表</h3>
 					<Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa'}} onClick={this.configTestDomain}>配置API测试域名</Button>
-					<a href={getApiPath('docs/57729f9d5df150cc0ab98825')} target="_blank"><Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa',marginRight:'20px'}}>在线API文档</Button></a>
+					<a href={getApiPath(`docs/${projectId}`)} target="_blank"><Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa',marginRight:'20px'}}>在线API文档</Button></a>
 					<Button bsStyle="primary" onClick={this.handleCreateBin} style={{marginRight:'20px'}}>创建接口</Button>
 				</Row>
 
 				<Form horizontal ref="apiTestDomain" style={{display:'none'}}>
 			    <FormGroup controlId="formHorizontalEmail">
-			      <Col sm={1}>Host</Col>
-			      <Col sm={5}>
-			        <FormControl type="text" defaultValue={this.state.host} onChange={this.changeDomain.bind(this,'host')}/>
+			      <Col sm={6}>
+			      	<InputGroup>
+      					<InputGroup.Addon>Host</InputGroup.Addon>
+      					<FormControl type="text" defaultValue={this.state.host} onChange={this.changeDomain.bind(this,'host')}/>
+      				</InputGroup>
 			      </Col>
-			      <Col sm={1}>BasePath</Col>
-			      <Col sm={5}>
-			        <FormControl type="text" placeholder="没有可不填" value={this.state.basePath}  onChange={this.changeDomain.bind(this,'basePath')}/>
+			      <Col sm={6}>
+			        <InputGroup>
+      					<InputGroup.Addon>BasePath</InputGroup.Addon>
+      					<FormControl type="text" placeholder="没有可不填" value={this.state.basePath}  onChange={this.changeDomain.bind(this,'basePath')}/>
+      				</InputGroup>
 			      </Col>
 			    </FormGroup>
 			  </Form>
@@ -81,7 +87,7 @@ const BinList = React.createClass({
 						      		<div className="button-wrapper">
 							      		<a href={getApiPath('apitest/'+item._id,{host:this.state.host,basePath:this.state.basePath})} target="_blank">在线测试</a>
 							      		<LinkContainer to={`${getBasePath()}/mock/list/${item['_id']}`}><a href="javascript:;">MOCK列表</a></LinkContainer>
-							      		<LinkContainer to={`${getBasePath()}/bin/detail`}><a href="javascript:;">详情</a></LinkContainer>
+							      		<a href={getApiPath(`docs/${projectId}#${item.tag}-${item.summary}`)} target="_blank">详情</a>
 							      	</div>
 						      	</Col> 
 					      	</Row>     	
