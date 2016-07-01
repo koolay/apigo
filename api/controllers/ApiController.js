@@ -35,7 +35,7 @@ module.exports = {
         //获取输入参数
         var paramsInputToSave = [];
         if (paramsInput) {
-            if (!_.isArray(paramsInput)) {
+            if (!_.isObject(paramsInput)) {
                 return ResponseService.toJson(res, true, '', 'params格式不正确');
             }
 
@@ -204,7 +204,7 @@ module.exports = {
 
         var error = path.validateSync();
         if (error) {
-            return ResponseService.toJson(res, false, error, '输入格式');
+            return ResponseService.toJson(res, false, error, '输入格式不正确');
         }
         path.save(function(err, api) {
             if (err) {
