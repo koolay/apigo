@@ -76,10 +76,10 @@ module.exports = {
             pathId         : post.pathId,
             summary        : post.summary,
             description    : post.description,
-            method         : post.request.method.toLowerCase();
+            method         : post.request.method.toLowerCase(),
             consumes       : post.request.contentType,
                 produces   : 'application/json',
-                parameters : post.request.params;
+                parameters : post.request.params
         };
 
         if (post.responses) {
