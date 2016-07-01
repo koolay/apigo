@@ -57,6 +57,16 @@ module.exports = {
 
     },
 
+    remove: function(req, res){
+        var mockid = req.param('mockid');
+        Mock.remove({_id: MongodbService.newObjectId(mockid)},function(err){
+            return res.json({
+                result: err ? false : true,
+                msg: err ? err : '删除成功'
+            });
+        });
+    },
+
     list: function(req, res) {
         Mock.find({
             pathId: req.param('pathid')
@@ -80,7 +90,6 @@ module.exports = {
      */
     view: function (req, res) {
         var mockid = req.param('mockid');
-        console.log(mockid)
         Mock.findOne({
             _id: MongodbService.newObjectId(mockid)
         }).exec(function(err, data) {

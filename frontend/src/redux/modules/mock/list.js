@@ -38,11 +38,31 @@ export const fetchMocklist = (pathid,callback) => {
   }
 }
 
+export const removeMock = (mockid,callback) => {
+  let fetchOptions = getFetchOptions(getApiPath('api/mock/remove', {mockid: mockid}))
+
+  return {
+    [CALL_API]: {
+      ...fetchOptions,
+      complete:callback,
+      types: [
+        FETCH_REQUEST,
+        {
+          type: 'REMOVE_MOCK_SUCCESS',
+          payload: (action, state, json) => json.data
+        }, 
+        FETCH_FAILURE
+      ]
+    }
+  }
+}
+
 /**
  * 暴露actions到外面，方便使用react-redux connect绑定到Container Component
  */
 export const actions = {
-  fetchMocklist
+  fetchMocklist,
+  removeMock
 }
 
 
