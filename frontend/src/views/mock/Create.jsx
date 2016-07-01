@@ -21,7 +21,7 @@ import CodeExample from '../../components/CodeExample';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { actions as actionCreators } from '../../redux/modules/bin/define';
+import { actions as actionCreators } from '../../redux/modules/mock/create';
 
 import '../bin/define.less';
 import './create.less';
@@ -53,17 +53,17 @@ const Create = React.createClass({
 					}]
 				},
 				/**
-				 * response 可以定义多组，每组都有http-code, content-type, headers, schema值
+				 * response 可以定义多组，每组都有http-code, content-type, headers, data值
 				 * @type {Array}
 				 */
 				responses: [{
-					httpCode: null,
+					httpCode: 200,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,
 						description: null
 					}],
-					schema: null
+					data: null
 				}]
 			}
 		}
@@ -101,7 +101,7 @@ const Create = React.createClass({
 
 			// response body
 			this.state.inputValues.responses.forEach((item, index) => {
-				const bodyRef = `responses.schema${index}`
+				const bodyRef = `responses.data${index}`
 				if (!this.codeEditors[bodyRef]){
 					this.codeEditors[bodyRef] = true
 					CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs[bodyRef]), options)
@@ -117,7 +117,7 @@ const Create = React.createClass({
 
 	render() {
 		const { errors, inputValues, headerInputs } = this.state
-		const panelHeader = (<h3>数据模拟</h3>)
+		const panelHeader = (<h3>添加MOCK</h3>)
 		const panelFooter = (<Button pullRight bsStyle="primary" onClick={this.handleSubmit}>保存</Button>)
 		const codeMode = {name: 'javascript', json: true}
 		const tipText = 
@@ -204,7 +204,7 @@ const Create = React.createClass({
 		      						<InputGroup key={index} className="multi">
 				      					<InputGroup.Addon>Header</InputGroup.Addon>
 				      					<FormControl ref={keyRef} type="text" value={item.key} placeholder="key" onChange={this.requestHeadersInputOnChange.bind(this, keyRef, index, 'key')} />
-				      					<FormControl ref={valueRef} type="text" value={item.description} placeholder="description" onChange={this.requestHeadersInputOnChange.bind(this, valueRef, index, 'description')} />
+				      					<FormControl ref={valueRef} type="text" value={item.description} placeholder="value" onChange={this.requestHeadersInputOnChange.bind(this, valueRef, index, 'description')} />
 				      					<InputGroup.Button>
 								          <Button bsStyle={buttonBsStyle} onClick={handleClick}><Glyphicon glyph={glyph} /></Button>
 								        </InputGroup.Button>
@@ -213,7 +213,7 @@ const Create = React.createClass({
 		      				})}
 		      			</FormGroup>
 
-		      			<FormGroup>
+		      			<FormGroup validationState={errors['request.params']}>
 		      				<ControlLabel>
 		      					Request Params
 		      					<OverlayTrigger placement="right" overlay={tipParams}>
@@ -229,16 +229,16 @@ const Create = React.createClass({
 		      			</FormGroup>
 			      	</Col>
 			      	<Col sm={6}>
-			      		<div className="response-add-button-wrapper"><Button bsStyle="primary" onClick={this.handleAddResponseGroup}>Add Response</Button></div>
+			      		
 			      		{inputValues.responses && inputValues.responses.map((item, groupIndex) => {
 			      			const httpCodeRef = `responses.httpCode${groupIndex}`
 			      			const contentTypeRef = `responses.contentType${groupIndex}`
-			      			const bodyRef = `responses.schema${groupIndex}`
+			      			const bodyRef = `responses.data${groupIndex}`
 				      		
 				      		return (
 				      			<div key={groupIndex} className="response-group-wrapper">
-				      				{groupIndex > 0 ? <div className="response-add-button-wrapper"><Button bsStyle="danger" onClick={this.handleRemoveResponseGroup.bind(this, groupIndex)}>Remove</Button></div> : null}
-				      				<FormGroup validationState={errors.path}>
+				      				
+				      				<FormGroup validationState={errors[httpCodeRef]}>
 					      				<ControlLabel>HTTP Code*</ControlLabel>
 					      				<FormControl ref={httpCodeRef} type="text" placeholder="http code" value={item.httpCode} onChange={this.responseHttpCodeInputOnChange.bind(this, groupIndex)} />
 					      			</FormGroup>
@@ -265,7 +265,7 @@ const Create = React.createClass({
 					      						<InputGroup key={index} className="multi">
 							      					<InputGroup.Addon>Header</InputGroup.Addon>
 							      					<FormControl ref={keyRef} type="text" value={header.key} placeholder="key" onChange={this.responseHeadersInputOnChange.bind(this, keyRef, groupIndex, index, 'key')} />
-							      					<FormControl ref={valueRef} type="text" value={header.description} placeholder="description" onChange={this.responseHeadersInputOnChange.bind(this, valueRef, groupIndex, index, 'description')} />
+							      					<FormControl ref={valueRef} type="text" value={header.description} placeholder="value" onChange={this.responseHeadersInputOnChange.bind(this, valueRef, groupIndex, index, 'description')} />
 							      					<InputGroup.Button>
 											          <Button bsStyle={buttonBsStyle} onClick={handleClick}><Glyphicon glyph={glyph} /></Button>
 											        </InputGroup.Button>
@@ -274,14 +274,14 @@ const Create = React.createClass({
 					      				})}
 					      			</FormGroup>
 
-					      			<FormGroup validationState={errors.responses}>
+					      			<FormGroup validationState={errors[bodyRef]}>
 					      				<ControlLabel>
 					      					Response Body*
 					      					<OverlayTrigger placement="left" overlay={tipResponseBody}>
 							              <Glyphicon glyph="info-sign"/>
 							            </OverlayTrigger>
 					      				</ControlLabel>
-					      				<FormControl ref={bodyRef} componentClass="textarea" rows={5} value={item.schema} />
+					      				<FormControl ref={bodyRef} componentClass="textarea" rows={5} value={item.data} />
 					      			</FormGroup> 
 				      			</div>
 				      		)
@@ -397,14 +397,13 @@ const Create = React.createClass({
 		const name = 'request.params'
 		const { inputValues } = this.state
 		const inputValue = this.refs[name].getValue()
-		// let error = !!inputValue ? null : 'error'
 
 		// 这里只更新当前输入框的值和状态
 		this.setState({
-			// errors: {
-			// 	...this.state.errors,
-			// 	[name]: error
-			// },
+			errors: {
+				...this.state.errors,
+				[name]: this.validRequestParamsInput(inputValue)
+			},
 			inputValues: {
 				...inputValues,
 				request: {
@@ -413,6 +412,18 @@ const Create = React.createClass({
 				}
 			}
 		})
+	},
+
+	validRequestParamsInput(inputValue) {
+		let error = null
+
+		try {
+			inputValue && JSON.parse( inputValue )
+		} catch(e) {
+			error = 'error'
+		}
+
+		return error
 	},
 
 	requestHeadersInputOnChange(name, index, type) {
@@ -451,7 +462,7 @@ const Create = React.createClass({
 						key: null,
 						description: null
 					}],
-					schema: null
+					data: null
 				}]
 			}
 		})
@@ -587,32 +598,42 @@ const Create = React.createClass({
 	},
 
 	responseBodyInputOnChange(groupIndex) {
-		const name = `responses.schema${groupIndex}`
+		const name = `responses.data${groupIndex}`
 		const { inputValues } = this.state
 		const inputValue = this.refs[name].getValue()
-		// let error = !!inputValue ? null : 'error'
 		
 		let responses = inputValues.responses.map((response, i) => {
 				if (i === groupIndex) {
-					return {...response, schema: inputValue}
+					return {...response, data: inputValue}
 				}
 				return response
 			})
 
-		console.log('responses:', responses) 
-		
+		console.log('responses:', responses) 	
 
 		// 这里只更新当前输入框的值和状态
 		this.setState({
-			// errors: {
-			// 	...this.state.errors,
-			// 	[name]: error
-			// },
+			errors: {
+				...this.state.errors,
+				[name]: this.validResponseBodyInput(inputValue)
+			},
 			inputValues: {
 				...inputValues,
 				responses
 			}
 		})
+	},
+
+	validResponseBodyInput(inputValue) {
+		let error = !!inputValue ? null : 'error'
+
+		try {
+			inputValue && JSON.parse( inputValue )
+		} catch(e) {
+			error = 'error'
+		}
+
+		return error
 	},
 
 	validInputs() {
@@ -633,6 +654,23 @@ const Create = React.createClass({
 			}
 		}
 
+		// request params
+		const result = this.validRequestParamsInput( inputValues.request.params )
+
+		if (result) {
+			hasError = true
+			errors['request.params'] = 'error'
+		}
+
+		// response body
+		inputValues.responses.forEach((item, index) => {
+			let result = this.validResponseBodyInput( item.data )
+			if (result) {
+				hasError = true
+				errors[`responses.data${index}`] = 'error'
+			}
+		})
+
 		this.setState({errors})
 
 		return !hasError
@@ -645,7 +683,28 @@ const Create = React.createClass({
 
 		console.log('valid...', this.state.inputValues)
 
-		this.props.actions.saveDatas( this.state.inputValues )
+		let inputValues = {...this.state.inputValues}
+
+		// 把request, response body的值转成JSON对象
+		let params = inputValues.request.params
+		if (params) {
+			params = JSON.parse( params )
+			inputValues = {...inputValues, request: {...inputValues.request, params}}
+		}
+
+		let responses = inputValues.responses.map((response, index) => {
+			let data = JSON.parse( response.data )
+			return {...response, data}
+		})
+		inputValues = {...inputValues, responses}
+
+		// 把params.binId合到inputValues中去，以便传到后台
+		const binId = this.props.params['binId']
+		inputValues = {...inputValues, pathId: binId}
+
+		console.log('inputValues: ', inputValues)
+
+		this.props.actions.saveDatas( inputValues )
 			.then(() => {
 				console.log( this.props.saved )
 				if ( this.props.saved === true ) {
@@ -661,8 +720,7 @@ const Create = React.createClass({
 
 const stateToProps = (state) => {
   return {
-    ...state.mockCreate,
-    tipOptions: state.tip.tipOptions
+    ...state.mockCreate
   }
 }
 

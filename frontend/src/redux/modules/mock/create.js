@@ -15,16 +15,16 @@ import getBasePath from '../../../helpers/getBasePath';
 const FETCH_REQUEST = Symbol('FETCH_REQUEST')
 const FETCH_FAILURE = Symbol('FETCH_FAILURE')
 
-const SAVE_BIN_DATAS_REQUEST = 'SAVE_BIN_DATAS_REQUEST'
-const SAVE_BIN_DATAS_SUCCESS = 'SAVE_BIN_DATAS_SUCCESS'
-const SAVE_BIN_DATAS_FAILURE = 'SAVE_BIN_DATAS_FAILURE'
+const SAVE_MOCK_DATAS_REQUEST = 'SAVE_MOCK_DATAS_REQUEST'
+const SAVE_MOCK_DATAS_SUCCESS = 'SAVE_MOCK_DATAS_SUCCESS'
+const SAVE_MOCK_DATAS_FAILURE = 'SAVE_MOCK_DATAS_FAILURE'
 
 
 // ------------------------------------
 // Actions (Action Creator)
 // ------------------------------------
 export const saveDatas = (data) => {
-  let fetchOptions = getFetchOptions(getApiPath('apis'), 'POST', {
+  let fetchOptions = getFetchOptions(getApiPath('api/mocks'), 'POST', {
       body: JSON.stringify( data )
     })
 
@@ -32,9 +32,9 @@ export const saveDatas = (data) => {
     [CALL_API]: {
       ...fetchOptions,
       types: [
-        SAVE_BIN_DATAS_REQUEST,
+        SAVE_MOCK_DATAS_REQUEST,
         {
-          type: SAVE_BIN_DATAS_SUCCESS,
+          type: SAVE_MOCK_DATAS_SUCCESS,
           payload: (action, state, json) => json.data
           // ,meta: {
           //   transition: function(state, { payload }) {
@@ -45,7 +45,7 @@ export const saveDatas = (data) => {
           //   }
           // }
         }, 
-        SAVE_BIN_DATAS_FAILURE
+        SAVE_MOCK_DATAS_FAILURE
       ]
     }
   }
@@ -72,11 +72,11 @@ const initialState = {
 
 export default handleActions({
 
-  [SAVE_BIN_DATAS_SUCCESS] (state, { payload }) {
+  [SAVE_MOCK_DATAS_SUCCESS] (state, { payload }) {
     return {...state, saved: true}
   },
 
-  [SAVE_BIN_DATAS_FAILURE] (state, { payload }) {
+  [SAVE_MOCK_DATAS_FAILURE] (state, { payload }) {
     return {...state, saved: false}
   }
 
