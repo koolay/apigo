@@ -1,17 +1,17 @@
 module.exports = {
-  path: 'bin',
+  path: 'mock',
   childRoutes: [{
-    path: 'list',
+    path: 'list(/:binId)',
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
-        cb(null, require('../../views/bin/List').default)
+        cb(null, require('../../views/mock/list').default)
       })
     }
   }, {
-    path: 'define(/:binId)',
+    path: 'create(/:mockId)',
     getComponent(nextState, cb) {
       require.ensure([], (require) => {
-        cb(null, require('../../views/bin/Define').default)
+        cb(null, require('../../views/mock/Create').default)
       })
     }
   }]

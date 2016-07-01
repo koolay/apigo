@@ -20,7 +20,7 @@ var responseSubSchema = new Schema({
         default: 200
     },
     description: String,
-    //实际是schema,
+    //实际对应swagger response schema,
     dataSchema: {
         _id: false,
         type: {
@@ -57,7 +57,7 @@ module.exports = {
         name: {
             type: String,
             required: true,
-            match: /^[a-zA-Z]+[a-zA-Z_\.\-]*/
+            match: /^[a-zA-Z]+[a-zA-Z_\-]*/
         },
         method: {
             type: String,

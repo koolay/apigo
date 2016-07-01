@@ -42,7 +42,7 @@ module.exports = {
         query:{},
         body: {},
         httpCode:{
-            type: String
+            type: Number
         },
         responses: {},
     }

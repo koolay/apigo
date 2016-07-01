@@ -9,11 +9,11 @@ module.exports.routes = {
   'get /api/apis': 'ApiController.list',
   'get /api/apis/:id': 'ApiController.detail',
   'post /api/apis': 'ApiController.create',
-  
+
   //mock
   'get /api/mocks': 'MockController.list',
-  'get /api/mock/create': 'MockController.create',
-  'get /api/mock/remove': 'MockController.remove',
+  'post /api/mocks': 'MockController.create',
+  'delete /api/mock/remove': 'MockController.remove',
   '/mock/:pathname':'MockController.view',
   'get /mock/test':'MockController.test',
 
