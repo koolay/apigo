@@ -3,12 +3,6 @@
 /**
  * Checks whether JSON objects respect JSON schemata.
  *
- * @author Carlos Lozano Sánchez
- * @license MIT
- * @copyright 2015-2016 Carlos Lozano Sánchez
- *
- * @see {@link http://json-schema.org/} for further information about JSON schemata.
- *
  * @module
  */
 
@@ -60,6 +54,7 @@ module.exports.check = function check(schema, object) {
     validator.addFormat('url-parameter', regExpr.urlParameter);
     validator.addFormat('type-url-parameter', regExpr.typeUrlParameter);
     validator.addFormat('security-scheme', regExpr.securityScheme);
+    validator.addFormat('bsonId', regExpr.bsonId);
     const valid = validator.validate(fullSchema, object);
 
     if (!valid) {

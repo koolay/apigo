@@ -12,6 +12,7 @@ const DIRECTORY_PATTERN = '^directory$' + '|' + DIRECTORY_URL_PATTERN + '|' + ON
 const HTTP_METHOD_PATTERN = '^GET$|^HEAD$|^POST$|^PUT$|^DELETE$|^PATCH$';
 const IN_URL_PARAMETER = '^query$|^path$';
 const TYPE_URL_PARAMETER = '^string$|^integer$|^number$|^boolean$';
+const BSON_ID = '^[0-9a-fA-F]{24}$';
 
 /**
  * Regular Expressions to check:
@@ -39,4 +40,5 @@ module.exports = {
     httpMethod: HTTP_METHOD_PATTERN,
     inUrlParameter: IN_URL_PARAMETER,
     typeUrlParameter: TYPE_URL_PARAMETER,
+    bsonId: BSON_ID,
 };
