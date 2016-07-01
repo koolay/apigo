@@ -79,7 +79,8 @@ module.exports = {
             method: post.request.method.toLowerCase(),
             consumes: post.request.contentType,
             produces: 'application/json',
-            parameters: post.request.params
+            body: post.request.params,
+            query: post.request.query
         };
 
         if (post.responses) {
