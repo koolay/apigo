@@ -31,6 +31,7 @@ module.exports = {
 
         //input
         var paramsInput = post.request.params;
+        var queryInput = post.request.query;
 
         //获取输入参数
         var paramsInputToSave = [];
@@ -44,6 +45,24 @@ module.exports = {
                 paramsInputToSave.push({
                     name: key,
                     in : 'formData',
+                    description: item.description,
+                    required: item.required,
+                    type: item.type
+                });
+
+            });
+
+        }
+        if (queryInput) {
+            if (!_.isObject(queryInput)) {
+                return ResponseService.toJson(res, true, '', 'query格式不正确');
+            }
+
+            Object.keys(queryInput).forEach(function(key) {
+                var item = queryInput[key];
+                paramsInputToSave.push({
+                    name: key,
+                    in : 'query',
                     description: item.description,
                     required: item.required,
                     type: item.type
