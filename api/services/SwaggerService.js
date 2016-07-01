@@ -30,7 +30,9 @@ module.exports = {
         for (var i = 0; i < paths.length; i++) {
             var path = paths[i];
             var pathObj = {};
-            pathObj['tags'] = path.tags;
+            if (path.tag) {
+                pathObj['tags'] = [path.tag];
+            }
             pathObj['summary'] = path.summary;
             pathObj['description'] = path.description;
             pathObj['operationId'] = path.operationId;
@@ -65,7 +67,7 @@ function convertResponses(dbPathResponses) {
         var dbResponse = dbPathResponses[i];
         var statusObj = {};
         statusObj['description'] = dbResponse.description;
-         //statusObj['default'] = dbResponse.default;
+        //statusObj['default'] = dbResponse.default;
         if (dbResponse.dataSchema.properties) {
             statusObj['schema'] = dbResponse.dataSchema;
         }
