@@ -25,14 +25,13 @@ module.exports = {
         var description = req.param('description');
         var path = req.param('path');
         var contentTypeInput = req.param('content-type_input'); //multipart/form-data
-        var contentTypeOutput = req.param('content-type_output');
 
         //input
         var paramsInput = req.param('params');
         var headersInput = req.param('headers_input');
 
         //output
-        //[{http_code: 200, schema: {}, headers: {} }]
+        //[{http_code: 200, content-type:'application/json', schema: {}, headers: {} }]
         var responses = req.param('responses');
 
 
