@@ -14,6 +14,9 @@ import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 // import TipMixin from '../../helpers/tipMixin';
 import getBasePath from '../../helpers/getBasePath';
 
+import 'codemirror/lib/codemirror.css';
+// import 'codemirror/theme/solarized.css';
+
 import '../../static/css/bootstrap/less/bootstrap.less';
 import '../../static/css/main.less';
 

@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import CodeMirror from 'codemirror';
+// import 'codemirror/addon/lint/lint';
+// import 'codemirror/addon/lint/javascript-lint';
+// import 'jsonlint';
+// import 'codemirror/addon/lint/json-lint';
+import 'codemirror/mode/javascript/javascript';
+
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -37,7 +44,13 @@ const Define = React.createClass({
 	},
 
 	componentDidMount() {
-		this.setPanelBodyHeight()
+		// this.setPanelBodyHeight()
+		const options = {
+			lineNumbers: true,
+			mode: {name: 'javascript', json: true}
+		} 
+		CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs.params), options)
+		CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs.response), options)
 	},
 
 	render() {
@@ -50,18 +63,23 @@ const Define = React.createClass({
 
 		return (
 			<Grid data-page="bin/define">
-				<Panel ref="panel" bsStyle="primary" header={panelHeader} footer={panelFooter}>
+				<Panel ref="panel" header={panelHeader} footer={panelFooter}>
 			    <form>
 			    	<Row>
 			      	<Col sm={6}>
+			      		<FormGroup validationState={errors.name}>
+		      				<ControlLabel>ApiID*</ControlLabel>
+		      				<FormControl ref="name" type="text" placeholder="唯一的API接口标识符" value={inputValues.apiId} onChange={this.inputOnChange.bind(this, 'apiId')} />
+		      			</FormGroup>
+
 		      			<FormGroup validationState={errors.name}>
-		      				<ControlLabel>名称*</ControlLabel>
-		      				<FormControl ref="name" type="text" placeholder="请输入接口名称" value={inputValues.name} onChange={this.inputOnChange.bind(this, 'name')} />
+		      				<ControlLabel>Name*</ControlLabel>
+		      				<FormControl ref="name" type="text" placeholder="接口名称" value={inputValues.name} onChange={this.inputOnChange.bind(this, 'name')} />
 		      			</FormGroup>
 
 		      			<FormGroup validationState={errors.host}>
-		      				<ControlLabel>地址*</ControlLabel>
-		      				<FormControl ref="host" type="text" placeholder="请输入接口地址" value={inputValues.host} onChange={this.inputOnChange.bind(this, 'host')} />
+		      				<ControlLabel>Host*</ControlLabel>
+		      				<FormControl ref="host" type="text" placeholder="接口地址" value={inputValues.host} onChange={this.inputOnChange.bind(this, 'host')} />
 		      			</FormGroup>
 
 		      			<FormGroup>
@@ -77,14 +95,26 @@ const Define = React.createClass({
 		      			</FormGroup>
 
 		      			<FormGroup>
-		      				<ControlLabel>描述</ControlLabel>
+		      				<ControlLabel>Headers</ControlLabel>
+		      				<InputGroup className="multi">
+		      					<InputGroup.Addon>Header</InputGroup.Addon>
+		      					<FormControl type="text" placeholder="name" />
+		      					<FormControl type="text" placeholder="value"/>
+		      					<InputGroup.Button>
+						          <Button bsStyle="success"><Glyphicon glyph="plus" /></Button>
+						        </InputGroup.Button>
+		      				</InputGroup>
+		      			</FormGroup>
+
+		      			<FormGroup>
+		      				<ControlLabel>Description</ControlLabel>
 		      				<FormControl ref="desc" componentClass="textarea" />
 		      			</FormGroup>
 			      	</Col>
 			      	<Col sm={6}>
 			      		<FormGroup validationState={errors.params}>
 		      				<ControlLabel>
-		      					参数定义*
+		      					Request params*
 		      					<OverlayTrigger placement="right" overlay={tipParams}>
 				              <Glyphicon glyph="info-sign"/>
 				            </OverlayTrigger>
@@ -94,13 +124,15 @@ const Define = React.createClass({
 
 		      			<FormGroup validationState={errors.response}>
 		      				<ControlLabel>
-		      					响应内容定义*
+		      					Response body*
 		      					<OverlayTrigger placement="right" overlay={tipResponseBody}>
 				              <Glyphicon glyph="info-sign"/>
 				            </OverlayTrigger>
 		      				</ControlLabel>
 		      				<FormControl ref="response" componentClass="textarea" rows={5} value={inputValues.response} onChange={this.inputOnChange.bind(this, 'response')} />
 		      			</FormGroup>
+
+		      			
 			      	</Col>
 			      </Row>
 			    </form>
