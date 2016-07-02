@@ -53,7 +53,7 @@ const BinList = React.createClass({
 		const panelHeader = (
 				<div className="">
 					<h4 className="title">项目A</h4>
-					<Button bsStyle="primary" onClick={this.handleAutoTest}>自动化测试</Button>
+					{/*<Button bsStyle="primary" onClick={this.handleAutoTest}>自动化测试</Button>*/}
 				</div>
 			)
 
@@ -89,10 +89,10 @@ const BinList = React.createClass({
 		        	{list ? list.map((item, index) => 		
 					      <ListGroupItem key={index}>
 					      	<Row>
-					      		<Col sm={1}>
+					      		{/*<Col sm={1}>
 					      			<Checkbox checked={checkes.indexOf(item['_id']) !== -1} onChange={this.handleChangeCheckbox.bind(this, item['_id'])} />
-					      		</Col>
-						      	<Col sm={7}>
+					      		</Col>*/}
+						      	<Col sm={8}>
 						      		<h5 className="title">{item.summary}</h5>{item.path}
 						      	</Col>
 						      	<Col sm={4}>
