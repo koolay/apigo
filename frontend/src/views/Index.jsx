@@ -24,6 +24,7 @@ const Index = React.createClass({
 					</Grid>
 					<Grid className="btn-wrapper">
 						<LinkContainer to={`${getBasePath()}/bin/list`}><Button componentClass="a" bsSize="large" style={{width: '300px'}}>开始使用</Button></LinkContainer>
+						<LinkContainer to={`${getBasePath()}/help/question`}><a href="javascript:;" className="question-guid">如果遇到这些问题，建议使用该平台 &rarr;</a></LinkContainer>
 					</Grid>
 				</div>
 

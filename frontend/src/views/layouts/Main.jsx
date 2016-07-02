@@ -38,7 +38,7 @@ const Main = React.createClass({
 
 				    <Navbar.Collapse>
 					    <Nav pullRight className="nav-right">
-					    	<LinkContainer to={`${getBasePath()}/bin/list`}><NavItem className="exit">接口列表</NavItem></LinkContainer>
+					    	<LinkContainer to={`${getBasePath()}/bin/list`}><NavItem className="exit">我的项目</NavItem></LinkContainer>
 					    	<LinkContainer to={`${getBasePath()}/bin/define`}><NavItem className="exit">创建接口</NavItem></LinkContainer>
 					    	<NavItem className="exit" href="https://github.com/koolay/apigo" target="_brank">Github</NavItem>
 				      </Nav>

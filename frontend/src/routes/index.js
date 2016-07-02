@@ -11,6 +11,7 @@ module.exports = {
     require('./examples'),
     require('./bin'),
     require('./mock'),
+    require('./help/question'),
     require('./norights'),
     require('./404')
   ]
