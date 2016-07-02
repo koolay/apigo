@@ -29,6 +29,7 @@ import './define.less';
 
 const DEFALUT_METHOD = 'GET'
 const DEFALUT_CONTENT_TYPE = 'application/json'
+const DEFALUT_HTTP_CODE = 200
 
 const Define = React.createClass({
 	contextTypes: {
@@ -62,7 +63,7 @@ const Define = React.createClass({
 				 * @type {Array}
 				 */
 				responses: [{
-					httpCode: 200,
+					httpCode: DEFALUT_HTTP_CODE,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,
@@ -497,7 +498,7 @@ const Define = React.createClass({
 			inputValues: {
 				...inputValues,
 				responses: [...inputValues.responses, {
-					httpCode: null,
+					httpCode: DEFALUT_HTTP_CODE,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,

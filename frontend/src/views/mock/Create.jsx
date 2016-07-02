@@ -30,6 +30,7 @@ import './create.less';
 
 const DEFALUT_METHOD = 'GET'
 const DEFALUT_CONTENT_TYPE = 'application/json'
+const DEFALUT_HTTP_CODE = 200
 
 const Create = React.createClass({
 	contextTypes: {
@@ -61,7 +62,7 @@ const Create = React.createClass({
 				 * @type {Array}
 				 */
 				responses: [{
-					httpCode: 200,
+					httpCode: DEFALUT_HTTP_CODE,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,
@@ -139,39 +140,15 @@ const Create = React.createClass({
 		const panelFooter = (<Button pullRight bsStyle="primary" onClick={this.handleSubmit}>保存</Button>)
 		const codeMode = {name: 'javascript', json: true}
 		const tipText = 
-`"id": {
-  "type": "string",
-  "description": "ID值",
-  "required": true
-},
-"name": {
-  "type": "string",
-  "defalut": "Project",
-  "description": "名称"
-},
-"users": {
-  "type": "array",
-  "items": { // 这里定义一个object数组
-    "type": "object",
-    "properties": { // object类型的子属性定义
-      "id": {
-        "type": "string"
-      },
-      "name": {
-        "type": "string"
-      }
-    }
-  }
+`{
+  "id": 1001,
+  "name": "名称"
 }
 `
 		const tipNodes = (
 				<div className="highlight">
 					<CodeExample mode={codeMode} codeText={tipText}/>
-					<p>其中，root节点的key值为字段名，它的属性定义格式如下：</p>
-					<p>type，数据类型，必填，值可为：['string', 'integer', 'boolean', 'number', 'array', 'object']，当type=array时，它的子属性集合为 items，当type=object时，它的子属性集合为 properties</p>
-					<p>default，默认值</p>
-					<p>required，标识是否必填，true || false</p>
-					<p>description，字段描述</p>
+					<p>标准的JSON格式数据，用于定义内容。</p>
 				</div>
 			)
 		const tipParams = (<Popover id="tip-params" className="field-tips">{tipNodes}</Popover>)
@@ -483,7 +460,7 @@ const Create = React.createClass({
 			inputValues: {
 				...inputValues,
 				responses: [...inputValues.responses, {
-					httpCode: null,
+					httpCode: DEFALUT_HTTP_CODE,
 					contentType: DEFALUT_CONTENT_TYPE,
 					headers: [{
 						key: null,
