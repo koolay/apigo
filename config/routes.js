@@ -39,4 +39,10 @@ module.exports.routes = {
         skipAssets: true,
         skipRegex: /(^\/api\/.*$)|(^\/docs\/.*$)|(^\/mock\/.*$)/,
     },
+
+    //演示api(勿删)
+    'get /api/products/query' : 'DemoController.getProducts',
+    'get /api/customers/query': 'DemoController.getCustomers',
+    'get /api/companys/query': 'DemoController.getCompanys',
+
 };
