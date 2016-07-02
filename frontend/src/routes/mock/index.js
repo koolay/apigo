@@ -1,5 +1,5 @@
 module.exports = {
-  path: 'mock',
+  path: 'mockapi',
   childRoutes: [{
     path: 'list/:binId',
     getComponent(nextState, cb) {

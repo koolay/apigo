@@ -141,29 +141,31 @@ const Define = React.createClass({
 		const panelFooter = (<Button pullRight bsStyle="primary" onClick={this.handleSubmit}>保存</Button>)
 		const codeMode = {name: 'javascript', json: true}
 		const tipText = 
-`"id": {
-  "type": "string",
-  "description": "ID值",
-  "required": true
-},
-"name": {
-  "type": "string",
-  "defalut": "Project",
-  "description": "名称"
-},
-"users": {
-  "type": "array",
-  "items": { // 这里定义一个object数组
-    "type": "object",
-    "properties": { // object类型的子属性定义
-      "id": {
-        "type": "string"
-      },
-      "name": {
-        "type": "string"
-      }
-    }
-  }
+`{
+	"id": {
+	  "type": "string",
+	  "description": "ID值",
+	  "required": true
+	},
+	"name": {
+	  "type": "string",
+	  "defalut": "Project",
+	  "description": "名称"
+	},
+	"users": {
+	  "type": "array",
+	  "items": { // 这里定义一个object数组
+	    "type": "object",
+	    "properties": { // object类型的子属性定义
+	      "id": {
+	        "type": "string"
+	      },
+	      "name": {
+	        "type": "string"
+	      }
+	    }
+	  }
+	}
 }
 `
 		const tipNodes = (

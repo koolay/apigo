@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 import { actions as actionCreators } from '../../redux/modules/mock/list';
 import getBasePath from '../../helpers/getBasePath';
-import {apiDomain} from '../../config';
+// import {apiDomain} from '../../config';
 
 import './mock.less';
 
@@ -35,6 +35,7 @@ const MockList = React.createClass({
 	},
 	render() {
 		let _this=this, {pathname, pathid, params, mocks} = this.props;
+		let apiDomain = location.protocol+"//"+location.host;
 
 		const codeMode = {name: 'javascript', json: true}
 		const codeText = 
@@ -148,7 +149,7 @@ const MockList = React.createClass({
 
 	handleCreateMock() {
 		const binId = this.props.params['binId']
-		this.context.router.push(`${getBasePath()}/mock/create/${binId}`)
+		this.context.router.push(`${getBasePath()}/mockapi/create/${binId}`)
 	},
 
 	handleShowModal(mock) {

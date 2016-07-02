@@ -98,7 +98,7 @@ const BinList = React.createClass({
 						      	<Col sm={4}>
 						      		<div className="button-wrapper">
 							      		<a href={getApiPath('apitest/'+item._id,{host:this.state.host,basePath:this.state.basePath})} target="_blank" onClick={this.handleOnTest.bind(this, item)}>在线测试</a>
-							      		<LinkContainer to={`${getBasePath()}/mock/list/${item['_id']}`}><a href="javascript:;">MOCK列表</a></LinkContainer>
+							      		<LinkContainer to={`${getBasePath()}/mockapi/list/${item['_id']}`}><a href="javascript:;">MOCK列表</a></LinkContainer>
 							      		<a href={getApiPath(`docs/${projectId}#${item.tag}-${item.summary}`)} target="_blank">详情</a>
 							      	</div>
 						      	</Col> 

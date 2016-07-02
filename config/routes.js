@@ -34,15 +34,14 @@ module.exports.routes = {
     'post /projects': 'ProjectController.create',
     'get /projects/:id': 'ProjectController.swagger',
 
-    '/*': {
-        view: 'index',
-        skipAssets: true,
-        skipRegex: /(^\/api\/.*$)|(^\/docs\/.*$)|(^\/mock\/.*$)/,
-    },
-
     //演示api(勿删)
     'get /api/products/query' : 'DemoController.getProducts',
     'get /api/customers/query': 'DemoController.getCustomers',
     'get /api/companys/query': 'DemoController.getCompanys',
 
+    '/*': {
+        view: 'index',
+        skipAssets: true,
+        skipRegex: /(^\/api\/.*$)|(^\/docs\/.*$)|(^\/mock\/.*$)/,
+    },
 };
