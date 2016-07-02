@@ -51,7 +51,7 @@ const BinList = React.createClass({
 		return (
 			<Grid data-page="bin/list">
 				<Row className="toolbar">
-					<h3>API接口列表</h3>
+					<h3>项目接口列表</h3>
 					<Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa'}} onClick={this.configTestDomain}>配置API测试域名</Button>
 					<a href={getApiPath(`docs/${projectId}`)} target="_blank"><Button bsStyle="primary" style={{backgroundColor:'#fff',color:'#2196F3',borderColor:'#a5ccfa',marginRight:'20px'}}>在线API文档</Button></a>
 					<Button bsStyle="primary" onClick={this.handleCreateBin} style={{marginRight:'20px'}}>创建接口</Button>

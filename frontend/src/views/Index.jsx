@@ -18,37 +18,48 @@ const Index = React.createClass({
 			<div data-page="index">
 				<div className="showcase">
 					<Grid>
-						<h1>APICloud</h1>
-						<p>APICloud 允许你创建自定义的接口，用来测试、模拟以及跟踪HTTP请求和响应的libraries, sockets and APIs. 同时生成接口文档，方便团队协同开发; 还可以在上面构建你的自动化测试，用来测试接口的完整性。</p>
+						<h1>API自动化平台</h1>
+						<h2 style={{fontSize:'36px',color:'#fff'}}>高效的敏捷团队协同开发利器</h2>
+						<p>通过APICloud自动化平台，团队可以快捷的定义接口和测试用例，生成标准的API文档。强大的动态模拟数据接口定义，让前后端协同开发变得高效。同时还提供了便捷的在线接口测试、自动化测试等高级功能。</p>
 					</Grid>
 					<Grid className="btn-wrapper">
-						<LinkContainer to={`${getBasePath()}/bin/define`}><Button componentClass="a" bsSize="large" style={{width: '300px'}}>Create Bin</Button></LinkContainer>
+						<LinkContainer to={`${getBasePath()}/bin/list`}><Button componentClass="a" bsSize="large" style={{width: '300px'}}>开始使用</Button></LinkContainer>
 					</Grid>
 				</div>
 
-				<Grid className="section">
-					<h3 className="section-heading">统一API自动化平台</h3>
+				<Grid className="section" style={{paddingTop:'50px'}}>
 					<Row>
 						<Col sm={3} className="card">
+							<Col sm={12}>
+								<span className="card-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>home-lifecycle-05</title><rect x="9.304" y="27" width="2" height="16"></rect><rect x="23.304" y="30" width="2" height="13"></rect><rect x="37.304" y="21" width="2" height="22"></rect><g><path d="M23.83,23.88l-12.4-6.675L4.955,22.759a1,1,0,1,1-1.3-1.519l7-6,1.125-.121L24.18,21.8,40.911,7.707A1,1,0,0,1,42.2,9.237L24.948,23.765Z"></path><polygon points="40.692 13.632 41.103 8.853 36.324 8.445 38.527 6.59 43.304 7 42.895 11.778 40.692 13.632"></polygon></g></svg>
+								</span>
+							</Col>
+							<Col sm={12}>
+								<h4 className="card-title">接口模拟数据</h4>
+								<p className="card-text">解决前后端协同开发时低效的接口联调问题，前端根据逻辑可定义不同的模拟响应数据。</p>
+							</Col>
+						</Col>
+						<Col sm={3} className="card">		
 							<Col sm={12}>
 								<span className="card-icon">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>home-lifecycle-01</title><path d="M22,23.009H7l-1-1v-15l1-1H22l1,1v15Zm-14-2H21v-13H8v13Z"></path><path d="M22,42.009H7l-1-1v-15l1-1H22l1,1v15Zm-14-2H21v-13H8v13Z"></path><path d="M41.052,42h-15l-1-1V7l1-1h15l1,1V41Zm-14-2h13V8h-13V40Z"></path></svg>
 								</span>
 							</Col>
 							<Col sm={12}>
-								<h4 className="card-title">专业</h4>
-								<p className="card-text">解决开发问题</p>
+								<h4 className="card-title">标准API文档</h4>
+								<p className="card-text">让你从繁琐的API文档编写中解脱，实现团队的文档规范化，降低开发之间的沟通成本，提高开发效率。</p>
 							</Col>
 						</Col>
-						<Col sm={3} className="card">		
+						<Col sm={3} className="card">
 							<Col sm={12}>
 								<span className="card-icon">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>home-lifecycle-02</title><path d="M24.5,29A12.5,12.5,0,1,1,37,16.5,12.514,12.514,0,0,1,24.5,29Zm0-23A10.5,10.5,0,1,0,35,16.5,10.512,10.512,0,0,0,24.5,6Z"></path><path d="M15.5,44A12.5,12.5,0,1,1,28,31.5,12.514,12.514,0,0,1,15.5,44Zm0-23A10.5,10.5,0,1,0,26,31.5,10.512,10.512,0,0,0,15.5,21Z"></path><path d="M32.5,44A12.5,12.5,0,1,1,45,31.5,12.514,12.514,0,0,1,32.5,44Zm0-23A10.5,10.5,0,1,0,43,31.5,10.511,10.511,0,0,0,32.5,21Z"></path></svg>
 								</span>
 							</Col>
 							<Col sm={12}>
-								<h4 className="card-title">DevOps</h4>
-								<p className="card-text">解决开发问题</p>
+								<h4 className="card-title">接口开发测试</h4>
+								<p className="card-text">每个接口有专属的测试面板，从此不用一个一个的敲入输入参数、请求Header，让你更快的测试接口。</p>
 							</Col>
 						</Col>
 						<Col sm={3} className="card">
@@ -58,19 +69,8 @@ const Index = React.createClass({
 								</span>
 							</Col>
 							<Col sm={12}>
-								<h4 className="card-title">创新</h4>
-								<p className="card-text">解决开发问题</p>
-							</Col>
-						</Col>
-						<Col sm={3} className="card">		
-							<Col sm={12}>
-								<span className="card-icon">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>home-lifecycle-05</title><rect x="9.304" y="27" width="2" height="16"></rect><rect x="23.304" y="30" width="2" height="13"></rect><rect x="37.304" y="21" width="2" height="22"></rect><g><path d="M23.83,23.88l-12.4-6.675L4.955,22.759a1,1,0,1,1-1.3-1.519l7-6,1.125-.121L24.18,21.8,40.911,7.707A1,1,0,0,1,42.2,9.237L24.948,23.765Z"></path><polygon points="40.692 13.632 41.103 8.853 36.324 8.445 38.527 6.59 43.304 7 42.895 11.778 40.692 13.632"></polygon></g></svg>
-								</span>
-							</Col>
-							<Col sm={12}>
-								<h4 className="card-title">效率</h4>
-								<p className="card-text">解决开发问题</p>
+								<h4 className="card-title">接口自动化测试</h4>
+								<p className="card-text">简单高效的接口自动化测试，减少自动化脚本编写的苦恼，大大提高测试效率。</p>
 							</Col>
 						</Col>
 					</Row>
