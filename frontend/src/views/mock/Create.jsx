@@ -731,7 +731,7 @@ const Create = React.createClass({
 				console.log( this.props.saved )
 				if ( this.props.saved === true ) {
 					window.alert('保存成功')
-					this.context.router.push(`${getBasePath()}/mock/list/${binId}`)
+					this.context.router.push(`${getBasePath()}/mockapi/list/${binId}`)
 				} else {
 					window.alert('保存失败')
 				}

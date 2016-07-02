@@ -52,7 +52,7 @@ const BinList = React.createClass({
 		const projectId = '57729f9d5df150cc0ab98825'
 		const panelHeader = (
 				<div className="">
-					<h4 className="title">项目A</h4>
+					<h4 className="title">我的项目</h4>
 					{/*<Button bsStyle="primary" onClick={this.handleAutoTest}>自动化测试</Button>*/}
 				</div>
 			)
