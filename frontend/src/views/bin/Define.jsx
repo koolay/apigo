@@ -664,7 +664,7 @@ const Define = React.createClass({
 	},
 
 	validResponseBodyInput(inputValue) {
-		let error = !!inputValue ? null : 'error'
+		let error = null
 
 		try {
 			inputValue && JSON.parse( inputValue )
@@ -728,7 +728,7 @@ const Define = React.createClass({
 			return
 		}
 
-		console.log('valid...', this.state.inputValues)
+		console.log('valid...')
 
 		let inputValues = {...this.state.inputValues}
 
@@ -745,9 +745,15 @@ const Define = React.createClass({
 			inputValues = {...inputValues, request: {...inputValues.request, querys}}
 		}
 
+		// 过滤掉headers里多余的空项
+		let requestHeaders = inputValues.request.headers.filter(header => !!header.key)
+		inputValues = {...inputValues, request: {...inputValues.request, headers: requestHeaders}}
+
 		let responses = inputValues.responses.map((response, index) => {
 			let schema = JSON.parse( response.schema )
-			return {...response, schema}
+			// 过滤掉headers里多余的空项
+			let headers = response.headers.filter(header => !!header.key)
+			return {...response, schema, headers}
 		})
 		inputValues = {...inputValues, responses}
 
