@@ -14,5 +14,12 @@ module.exports = {
         cb(null, require('../../views/bin/Define').default)
       })
     }
+  }, {
+    path: 'test-result',
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        cb(null, require('../../views/bin/TestResult').default)
+      })
+    }
   }]
 }
