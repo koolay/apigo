@@ -6,7 +6,7 @@
   "keywords": [],
   "dependencies": {
     "aglio": "^2.2.1",
-    "ajv": "^4.1.3",
+    "ajv": "^4.1.5",
     "apib2swagger": "^0.5.1",
     "apish": "^1.2.11",
     "async": "^2.0.0-rc.6",
@@ -35,6 +35,7 @@
     "jsen": "^0.6.1",
     "json-schema-deref-local": "github:seedscientific/json-schema-deref-local",
     "jsonwebtoken": "^7.0.1",
+    "lodash": "^4.13.1",
     "moment": "^2.13.0",
     "nock": "^8.0.0",
     "rc": "1.0.1",
