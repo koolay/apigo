@@ -33,30 +33,22 @@ function _findMock(mocklist, request) {
         var mock = mocklist[i];
 
         //对比method
-        console.log('mock.method:' + mock.method)
-        console.log('request.method:' + request.method)
         if (mock.method.toLowerCase() != request.method) {
             continue;
         }
 
         //对比query
-        console.log('mock.query:' + JSON.stringify(JSON.parse(JSON.stringify(mock.query))))
-        console.log('request.query:' + JSON.stringify(request.query))
-        if (mock.query && !_.isEqualWith(mock.query, request.query,_customizer)) {
+        if (request.query && !_.isEqualWith(mock.query, request.query,_customizer)) {
             continue;
         }
 
         //对比body
-        console.log('mock.body:' + JSON.stringify(mock.body))
-        console.log('request.body:' + JSON.stringify(request.body))
-        if (mock.body && !_.isEqualWith(mock.body, request.body,_customizer)) {
+        if (request.body && !_.isEqualWith(mock.body, request.body,_customizer)) {
             continue;
         }
 
         //对比headers（暂时关闭校验)
-        // console.log('mock.headers:'+JSON.stringify(mock.headers))
-        // console.log('request.headers:'+JSON.stringify(request.headers))
-        // if(mock.headers){
+        // if(request.headers){
         //     if(!_isAllHeadersExist(mock.headers, request.headers)){
         //         continue;
         //     }
@@ -85,13 +77,9 @@ module.exports = {
             method: post.request.method.toLowerCase(),
             consumes: post.request.contentType,
             produces: 'application/json',
+            body: post.request.params || {},
+            query: post.request.querys || {},
         };
-        if (!ValidateService.isEmpty(post.request.params)) {
-            obj['body'] = post.request.params;
-        }
-        if (!ValidateService.isEmpty(post.request.querys)) {
-            obj['query'] = post.request.querys;
-        }
 
         if (post.responses) {
             var rep = post.responses[0];
