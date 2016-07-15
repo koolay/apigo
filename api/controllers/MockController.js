@@ -39,7 +39,7 @@ function _findMock(mocklist, request) {
 
         //对比query
         console.log('query:'+JSON.stringify(request.query))
-        if (request.query && !_.isEqualWith(mock.query, request.query, _customizer)) {
+        if (request.query && Object.keys(request.query).length>0 !_.isEqualWith(mock.query, request.query, _customizer)) {
             console.log('query is not equal')
             continue;
         }
