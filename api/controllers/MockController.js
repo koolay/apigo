@@ -38,7 +38,7 @@ function _findMock(mocklist, request) {
         }
 
         //对比query
-        if (request.query && !_.isEqual(mock.query, request.query)) {
+        if (request.query && !_.isEqualWith(mock.query, request.query, _customizer)) {
             console.log('query is not equal')
             continue;
         }
