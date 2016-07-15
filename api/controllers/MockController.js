@@ -49,11 +49,11 @@ function _findMock(mocklist, request) {
         }
 
         //对比headers
-        if(request.headers){
-            if(!_isAllHeadersExist(mock.headers, request.headers)){
-                continue;
-            }
-        }
+        // if(request.headers){
+        //     if(!_isAllHeadersExist(mock.headers, request.headers)){
+        //         continue;
+        //     }
+        // }
 
         foundMock = mock;
         break;
