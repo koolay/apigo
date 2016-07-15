@@ -38,14 +38,12 @@ function _findMock(mocklist, request) {
         }
 
         //对比query
-        console.log('query:'+JSON.stringify(request.query))
         if (request.query && Object.keys(request.query).length>0 && !_.isEqualWith(mock.query, request.query, _customizer)) {
-            console.log('query is not equal')
             continue;
         }
 
         //对比body
-        if (request.body && !_.isEqual(mock.body, request.body)) {
+        if (request.body && Object.keys(request.query).length>0 && !_.isEqualWith(mock.body, request.body, _customizer)) {
             console.log('body is not equal')
             continue;
         }
