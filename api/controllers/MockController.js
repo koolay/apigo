@@ -39,11 +39,13 @@ function _findMock(mocklist, request) {
 
         //对比query
         if (request.query && !_.isEqual(mock.query, request.query)) {
+            console.log('query is not equal')
             continue;
         }
 
         //对比body
         if (request.body && !_.isEqual(mock.body, request.body)) {
+            console.log('body is not equal')
             continue;
         }
 
