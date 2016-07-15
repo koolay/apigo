@@ -38,12 +38,12 @@ function _findMock(mocklist, request) {
         }
 
         //对比query
-        if (request.query && !_.isEqualWith(mock.query, request.query,_customizer)) {
+        if (request.query && !_.isEqual(mock.query, request.query)) {
             continue;
         }
 
         //对比body
-        if (request.body && !_.isEqualWith(mock.body, request.body,_customizer)) {
+        if (request.body && !_.isEqual(mock.body, request.body)) {
             continue;
         }
 
