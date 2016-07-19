@@ -165,13 +165,13 @@ const MockList = React.createClass({
 	},
 
 	removeMock(mock,e){
-		let {actions} = this.props;
+		let {params, actions} = this.props;
 		actions.removeMock(mock._id,json=>{
 			if(!json.result){
 				alert(json.result)
 			}else{
-				console.log(JSON.stringify(this.props.params))
-				this.fetchMocklist(this.props.params['binId']);
+				console.log(JSON.stringify('params:':params))
+				this.fetchMocklist(params['binId']);
 			}
 		});
 	},
