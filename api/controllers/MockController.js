@@ -41,6 +41,7 @@ function _findMock(mocklist, request) {
         console.log('request query:'+JSON.stringify(request.query))
         console.log('mock query:'+JSON.stringify(mock.query))
         if (request.query && Object.keys(request.query).length>0 && !_.isEqualWith(mock.query, request.query, _customizer)) {
+            console.log('query is not equal')
             continue;
         }
 
