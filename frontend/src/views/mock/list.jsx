@@ -170,6 +170,7 @@ const MockList = React.createClass({
 			if(!json.result){
 				alert(json.result)
 			}else{
+				console.log(JSON.stringify(this.props.params))
 				this.fetchMocklist(this.props.params['binId']);
 			}
 		});
